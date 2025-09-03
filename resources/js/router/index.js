@@ -7,6 +7,7 @@ import Register from "../components/auth/Register.vue";
 import Dashboard from "../components/Dashboard.vue";
 import TaskList from "../components/TaskList.vue";
 import NotificationPage from "../components/NotificationPage.vue";
+import Profile from "../components/Profile.vue";
 
 const routes = [
     {
@@ -60,6 +61,15 @@ const routes = [
         meta: {
             requiresAuth: true,
             title: "Notifications",
+        },
+    },
+    {
+        path: "/profile",
+        name: "Profile",
+        component: Profile,
+        meta: {
+            requiresAuth: true,
+            title: "Profile",
         },
     },
     {

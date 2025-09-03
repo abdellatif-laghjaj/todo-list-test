@@ -151,5 +151,38 @@ export const useAuthStore = defineStore("auth", {
             }
             this.isInitialized = true;
         },
+
+        async updateProfile(data) {
+            this.isLoading = true;
+            this.error = null;
+
+            try {
+                const response = await axios.put("/profile", data);
+                this.user = response.data;
+                return response.data;
+            } catch (error) {
+                this.error =
+                    error.response?.data?.message || "Profile update failed";
+                throw error;
+            } finally {
+                this.isLoading = false;
+            }
+        },
+
+        async changePassword(data) {
+            this.isLoading = true;
+            this.error = null;
+
+            try {
+                const response = await axios.put("/profile/password", data);
+                return response.data;
+            } catch (error) {
+                this.error =
+                    error.response?.data?.message || "Password change failed";
+                throw error;
+            } finally {
+                this.isLoading = false;
+            }
+        },
     },
 });
