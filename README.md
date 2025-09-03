@@ -10,6 +10,7 @@ A modern, full-stack todo list application built with Laravel (backend) and Vue.
 ## Table of Contents
 
 -   [Features](#features)
+-   [Screenshots](#screenshots)
 -   [Tech Stack](#tech-stack)
 -   [Prerequisites](#prerequisites)
 -   [Installation](#installation)
