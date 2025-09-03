@@ -1,7 +1,10 @@
 <template>
     <div class="dashboard-container">
         <!-- Header Section -->
-        <div class="card card-padding mb-8 slide-up">
+        <div
+            class="card card-padding mb-8 fade-in"
+            style="animation-delay: 0.1s"
+        >
             <div
                 class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
             >
@@ -48,7 +51,7 @@
         <!-- Filters Section -->
         <div
             class="card card-padding mb-8 fade-in"
-            style="animation-delay: 0.1s"
+            style="animation-delay: 0.2s"
         >
             <div class="space-y-4">
                 <!-- Status Filters -->
@@ -193,7 +196,8 @@
             <!-- Empty State -->
             <div
                 v-else-if="filteredTasks.length === 0"
-                class="card card-padding text-center py-12"
+                class="card card-padding text-center py-12 fade-in"
+                style="animation-delay: 0.3s"
             >
                 <div class="text-gray-400 mb-4">
                     <CheckCircleIcon class="w-16 h-16 mx-auto" />
@@ -238,7 +242,11 @@
         </div>
 
         <!-- Pagination -->
-        <div v-if="totalPages > 1" class="card card-padding mt-8 fade-in">
+        <div
+            v-if="totalPages > 1"
+            class="card card-padding mt-8 fade-in"
+            style="animation-delay: 0.4s"
+        >
             <div
                 class="flex flex-col sm:flex-row items-center justify-between gap-4"
             >
@@ -547,6 +555,23 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* Enhanced animations */
+.fade-in {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .list-enter-active,
 .list-leave-active {
     transition: all 0.3s ease;

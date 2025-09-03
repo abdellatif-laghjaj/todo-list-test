@@ -1,7 +1,10 @@
 <template>
     <div class="dashboard-container">
         <!-- Header Section -->
-        <div class="card card-padding mb-8 slide-up">
+        <div
+            class="card card-padding mb-8 fade-in"
+            style="animation-delay: 0.1s"
+        >
             <div
                 class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
             >
@@ -54,7 +57,8 @@
             <!-- Empty State -->
             <div
                 v-else-if="notificationStore.notifications.length === 0"
-                class="card card-padding text-center py-12"
+                class="card card-padding text-center py-12 fade-in"
+                style="animation-delay: 0.2s"
             >
                 <div class="text-gray-400 mb-4">
                     <BellIcon class="w-16 h-16 mx-auto" />
@@ -76,12 +80,12 @@
                 <div
                     v-for="(notification, index) in sortedNotifications"
                     :key="notification.id"
-                    class="notification-card"
+                    class="notification-card fade-in"
                     :class="{
                         unread: !notification.read,
                         read: notification.read,
                     }"
-                    :style="{ animationDelay: `${index * 0.05}s` }"
+                    :style="{ animationDelay: `${0.3 + index * 0.05}s` }"
                 >
                     <div class="flex items-start gap-4">
                         <!-- Icon -->
@@ -258,6 +262,23 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* Enhanced animations */
+.fade-in {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .notification-card {
     @apply bg-white border border-gray-200 rounded-lg p-4 transition-all duration-200 hover:shadow-md;
 }
