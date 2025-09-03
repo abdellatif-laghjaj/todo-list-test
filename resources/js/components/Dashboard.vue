@@ -397,7 +397,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <button
                     @click="showCreateTask = true"
-                    class="quick-action-card bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200 text-blue-700 hover:from-blue-100 hover:to-indigo-100"
+                    class="quick-action-card bg-gradient-to-br from-blue-50 to-indigo-50 text-blue-700"
                 >
                     <PlusIcon class="h-6 w-6 mb-2" />
                     <span class="font-semibold">New Task</span>
@@ -406,7 +406,7 @@
 
                 <router-link
                     to="/tasks?status=pending"
-                    class="quick-action-card bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-200 text-yellow-700 hover:from-yellow-100 hover:to-orange-100"
+                    class="quick-action-card bg-gradient-to-br from-yellow-50 to-orange-50 text-yellow-700"
                 >
                     <ClockIcon class="h-6 w-6 mb-2" />
                     <span class="font-semibold">View Pending</span>
@@ -417,7 +417,7 @@
 
                 <router-link
                     to="/tasks?status=in_progress"
-                    class="quick-action-card bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-200 text-blue-700 hover:from-blue-100 hover:to-cyan-100"
+                    class="quick-action-card bg-gradient-to-br from-blue-50 to-cyan-50 text-blue-700"
                 >
                     <PlayIcon class="h-6 w-6 mb-2" />
                     <span class="font-semibold">In Progress</span>
@@ -428,7 +428,7 @@
 
                 <router-link
                     to="/tasks?status=completed"
-                    class="quick-action-card bg-gradient-to-br from-green-50 to-emerald-50 border-green-200 text-green-700 hover:from-green-100 hover:to-emerald-100"
+                    class="quick-action-card bg-gradient-to-br from-green-50 to-emerald-50 text-green-700"
                 >
                     <CheckCircleIcon class="h-6 w-6 mb-2" />
                     <span class="font-semibold">Completed</span>
@@ -621,13 +621,8 @@ onUnmounted(() => {
 <style scoped>
 /* Quick Action Cards */
 .quick-action-card {
-    @apply flex flex-col items-center justify-center p-6 rounded-xl border-2 transition-all duration-300 text-center;
+    @apply flex flex-col items-center justify-center p-6 rounded-xl text-center;
     min-height: 120px;
-}
-
-.quick-action-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 /* Enhanced animations */
