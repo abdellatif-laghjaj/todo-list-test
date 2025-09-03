@@ -33,8 +33,7 @@ A modern, full-stack todo list application built with Laravel (backend) and Vue.
 -   **Task Status Tracking**: Three status levels (pending, in_progress, completed)
 -   **Priority System**: Set task priorities (low, medium, high)
 -   **Due Date Management**: Set and track task deadlines
--   **User Authentication**: Secure JWT-based authentication system
--   **User Profiles**: Manage user accounts and profiles
+-   **User Authentication**: Secure JWT-based authentication System
 
 ### 🔔 Advanced Features
 
