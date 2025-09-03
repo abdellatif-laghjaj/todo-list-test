@@ -19,6 +19,7 @@ export const useNotificationStore = defineStore("notifications", {
         addNotification(notification) {
             const newNotification = {
                 id: Date.now(),
+                created_at: new Date().toISOString(),
                 timestamp: new Date().toISOString(),
                 read: false,
                 ...notification,

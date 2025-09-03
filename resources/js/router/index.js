@@ -6,7 +6,7 @@ import Login from "../components/auth/Login.vue";
 import Register from "../components/auth/Register.vue";
 import Dashboard from "../components/Dashboard.vue";
 import TaskList from "../components/TaskList.vue";
-import NotificationCenter from "../components/NotificationCenter.vue";
+import NotificationPage from "../components/NotificationPage.vue";
 
 const routes = [
     {
@@ -52,7 +52,7 @@ const routes = [
     {
         path: "/notifications",
         name: "Notifications",
-        component: NotificationCenter,
+        component: NotificationPage,
         meta: {
             requiresAuth: true,
             title: "Notifications",

@@ -38,7 +38,7 @@
                             to="/notifications"
                             class="nav-link relative"
                             :class="{
-                                active: $route.name === 'NotificationCenter',
+                                active: $route.name === 'Notifications',
                             }"
                         >
                             Notifications
@@ -212,7 +212,7 @@
                         class="mobile-nav-link flex items-center justify-between"
                         :class="{
                             'bg-indigo-50 border-indigo-500 text-indigo-700':
-                                $route.name === 'NotificationCenter',
+                                $route.name === 'Notifications',
                         }"
                         @click="closeMobileMenu"
                     >

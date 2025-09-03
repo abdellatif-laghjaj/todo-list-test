@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed top-4 right-4 z-50 w-80 max-w-sm">
+    <div class="fixed top-20 right-4 z-[9999] w-80 max-w-sm">
         <TransitionGroup name="notification" tag="div" class="space-y-2">
             <NotificationToast
                 v-for="notification in notifications"

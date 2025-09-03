@@ -21,13 +21,21 @@ class TaskRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'title' => 'required|string|max:255',
+        $rules = [
             'description' => 'nullable|string|max:1000',
             'status' => 'nullable|in:pending,in_progress,completed',
             'priority' => 'nullable|in:low,medium,high',
             'due_date' => 'nullable|date|after_or_equal:today',
         ];
+
+        // Only require title for create operations or when title is being updated
+        if ($this->isMethod('POST') || $this->has('title')) {
+            $rules['title'] = 'required|string|max:255';
+        } else {
+            $rules['title'] = 'nullable|string|max:255';
+        }
+
+        return $rules;
     }
 
     /**
