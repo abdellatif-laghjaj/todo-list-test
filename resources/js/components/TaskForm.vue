@@ -1,8 +1,6 @@
 <template>
     <div class="fixed inset-0 z-50 overflow-y-auto">
-        <div
-            class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0"
-        >
+        <div class="flex items-center justify-center min-h-screen px-4 py-8">
             <!-- Backdrop -->
             <div
                 @click="$emit('close')"
@@ -11,7 +9,7 @@
 
             <!-- Modal -->
             <div
-                class="inline-block w-full max-w-lg p-6 my-8 overflow-hidden text-left align-middle bg-white shadow-xl rounded-xl transform transition-all sm:max-w-md"
+                class="relative w-full max-w-lg p-6 overflow-hidden text-left align-middle bg-white shadow-xl rounded-xl transform transition-all"
             >
                 <!-- Header -->
                 <div class="flex items-center justify-between mb-6">
