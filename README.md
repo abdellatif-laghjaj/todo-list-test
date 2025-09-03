@@ -73,30 +73,30 @@ This project follows a modern, decoupled full-stack architecture. The frontend i
 
 ```mermaid
 graph TD
-    subgraph Frontend (Vue.js SPA)
-        A[User] --> B{Browser};
-        B --> C[Vue Components];
-        C <--> D[Pinia Stores];
-        C --> E[Vue Router];
-        D -- API Calls --> F[Axios];
+    subgraph "Frontend Vue.js SPA"
+        A[User] --> B[Browser]
+        B --> C[Vue Components]
+        C <--> D[Pinia Stores]
+        C --> E[Vue Router]
+        D --> F[Axios]
     end
 
-    subgraph Backend (Laravel API)
-        G[API Routes] --> H[Controllers];
-        H --> I[Services];
-        I --> J[Repositories];
-        J --> K[Eloquent Models];
-        K <--> L[Database (PostgreSQL/MySQL)];
-        I -- Dispatches --> M[Laravel Events];
+    subgraph "Backend Laravel API"
+        G[API Routes] --> H[Controllers]
+        H --> I[Services]
+        I --> J[Repositories]
+        J --> K[Eloquent Models]
+        K <--> L[Database PostgreSQL/MySQL]
+        I --> M[Laravel Events]
     end
 
-    subgraph Real-time Communication
-        M -- Broadcasts via --> N[Pusher];
-        N -- Pushes updates to --> O[Laravel Echo];
+    subgraph "Real-time Communication"
+        M --> N[Pusher]
+        N --> O[Laravel Echo]
     end
 
-    F -- HTTP Requests --> G;
-    O -- Updates --> D;
+    F --> G
+    O --> D
 
     style A fill:#f9f,stroke:#333,stroke-width:2px
     style L fill:#bbf,stroke:#333,stroke-width:2px
