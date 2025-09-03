@@ -7,10 +7,8 @@ use Illuminate\Http\Request;
 
 /**
  * Class NotificationController
- * 
+ *
  * Handles notification-related operations for the authenticated user.
- * 
- * @package App\Http\Controllers
  */
 class NotificationController extends Controller
 {
@@ -21,9 +19,6 @@ class NotificationController extends Controller
 
     /**
      * Get all notifications for the authenticated user.
-     * 
-     * @param Request $request
-     * @return JsonResponse
      */
     public function index(Request $request): JsonResponse
     {
@@ -35,23 +30,19 @@ class NotificationController extends Controller
             return response()->json([
                 'status' => 'success',
                 'data' => $notifications,
-                'message' => 'Notifications retrieved successfully'
+                'message' => 'Notifications retrieved successfully',
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to retrieve notifications',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
 
     /**
      * Mark a notification as read.
-     * 
-     * @param Request $request
-     * @param int $id
-     * @return JsonResponse
      */
     public function markAsRead(Request $request, int $id): JsonResponse
     {
@@ -59,22 +50,19 @@ class NotificationController extends Controller
             // In a real application, you would update the notification in database
             return response()->json([
                 'status' => 'success',
-                'message' => 'Notification marked as read'
+                'message' => 'Notification marked as read',
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to mark notification as read',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
 
     /**
      * Mark all notifications as read.
-     * 
-     * @param Request $request
-     * @return JsonResponse
      */
     public function markAllAsRead(Request $request): JsonResponse
     {
@@ -82,23 +70,19 @@ class NotificationController extends Controller
             // In a real application, you would update all notifications in database
             return response()->json([
                 'status' => 'success',
-                'message' => 'All notifications marked as read'
+                'message' => 'All notifications marked as read',
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to mark all notifications as read',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
 
     /**
      * Delete a notification.
-     * 
-     * @param Request $request
-     * @param int $id
-     * @return JsonResponse
      */
     public function destroy(Request $request, int $id): JsonResponse
     {
@@ -106,22 +90,19 @@ class NotificationController extends Controller
             // In a real application, you would delete the notification from database
             return response()->json([
                 'status' => 'success',
-                'message' => 'Notification deleted successfully'
+                'message' => 'Notification deleted successfully',
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to delete notification',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
 
     /**
      * Clear all notifications.
-     * 
-     * @param Request $request
-     * @return JsonResponse
      */
     public function clearAll(Request $request): JsonResponse
     {
@@ -129,13 +110,13 @@ class NotificationController extends Controller
             // In a real application, you would delete all notifications from database
             return response()->json([
                 'status' => 'success',
-                'message' => 'All notifications cleared successfully'
+                'message' => 'All notifications cleared successfully',
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to clear all notifications',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }

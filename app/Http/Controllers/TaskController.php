@@ -10,11 +10,9 @@ use Illuminate\Http\Request;
 
 /**
  * Class TaskController
- * 
+ *
  * Handles CRUD operations for tasks with proper authorization
  * ensuring users can only access their own tasks.
- * 
- * @package App\Http\Controllers
  */
 class TaskController extends Controller
 {
@@ -28,9 +26,6 @@ class TaskController extends Controller
 
     /**
      * Display a paginated listing of tasks for the authenticated user.
-     * 
-     * @param Request $request
-     * @return JsonResponse
      */
     public function index(Request $request): JsonResponse
     {
@@ -45,22 +40,19 @@ class TaskController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'data' => $tasks
+                'data' => $tasks,
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to retrieve tasks',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
 
     /**
      * Store a newly created task in storage.
-     * 
-     * @param TaskRequest $request
-     * @return JsonResponse
      */
     public function store(TaskRequest $request): JsonResponse
     {
@@ -73,22 +65,19 @@ class TaskController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'Task created successfully',
-                'data' => $task
+                'data' => $task,
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to create task',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
 
     /**
      * Display the specified task.
-     * 
-     * @param int $id
-     * @return JsonResponse
      */
     public function show(int $id): JsonResponse
     {
@@ -97,28 +86,24 @@ class TaskController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'data' => $task
+                'data' => $task,
             ]);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Task not found or access denied'
+                'message' => 'Task not found or access denied',
             ], 404);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to retrieve task',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
 
     /**
      * Update the specified task in storage.
-     * 
-     * @param TaskRequest $request
-     * @param int $id
-     * @return JsonResponse
      */
     public function update(TaskRequest $request, int $id): JsonResponse
     {
@@ -132,27 +117,24 @@ class TaskController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'Task updated successfully',
-                'data' => $task
+                'data' => $task,
             ]);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Task not found or access denied'
+                'message' => 'Task not found or access denied',
             ], 404);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to update task',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
 
     /**
      * Remove the specified task from storage.
-     * 
-     * @param int $id
-     * @return JsonResponse
      */
     public function destroy(int $id): JsonResponse
     {
@@ -161,26 +143,24 @@ class TaskController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Task deleted successfully'
+                'message' => 'Task deleted successfully',
             ]);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Task not found or access denied'
+                'message' => 'Task not found or access denied',
             ], 404);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to delete task',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
 
     /**
      * Get tasks statistics for the authenticated user.
-     * 
-     * @return JsonResponse
      */
     public function stats(): JsonResponse
     {
@@ -189,13 +169,13 @@ class TaskController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'data' => $stats
+                'data' => $stats,
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to retrieve task statistics',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }

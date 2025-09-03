@@ -4,9 +4,7 @@ namespace App\Events;
 
 use App\Models\Task;
 use App\Models\User;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -17,6 +15,7 @@ class TaskUpdated implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $task;
+
     public $user;
 
     /**
@@ -36,19 +35,17 @@ class TaskUpdated implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('tasks.' . $this->user->id),
+            new PrivateChannel('tasks.'.$this->user->id),
         ];
     }
 
     /**
      * Get the data that should be broadcast.
-     *
-     * @return array
      */
     public function broadcastWith(): array
     {
         return [
-            'message' => 'Task "' . $this->task->title . '" has been updated successfully!',
+            'message' => 'Task "'.$this->task->title.'" has been updated successfully!',
             'task' => $this->task,
             'type' => 'task_updated',
             'timestamp' => now()->toDateTimeString(),
@@ -57,8 +54,6 @@ class TaskUpdated implements ShouldBroadcast
 
     /**
      * The event's broadcast name.
-     *
-     * @return string
      */
     public function broadcastAs(): string
     {

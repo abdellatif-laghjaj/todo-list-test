@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -19,16 +18,13 @@ class AuthService
 
     /**
      * Register a new user.
-     *
-     * @param array $data
-     * @return array
      */
     public function register(array $data): array
     {
         // Check if user already exists
         if ($this->userRepository->findByEmail($data['email'])) {
             throw ValidationException::withMessages([
-                'email' => ['The email has already been taken.']
+                'email' => ['The email has already been taken.'],
             ]);
         }
 
@@ -39,22 +35,20 @@ class AuthService
             'user' => $user,
             'token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth()->factory()->getTTL() * 60,
         ];
     }
 
     /**
      * Authenticate user and return token.
      *
-     * @param array $credentials
-     * @return array
      * @throws ValidationException
      */
     public function login(array $credentials): array
     {
-        if (!$token = auth()->attempt($credentials)) {
+        if (! $token = auth()->attempt($credentials)) {
             throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.']
+                'email' => ['The provided credentials are incorrect.'],
             ]);
         }
 
@@ -62,14 +56,12 @@ class AuthService
             'user' => auth()->user(),
             'token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth()->factory()->getTTL() * 60,
         ];
     }
 
     /**
      * Logout user (invalidate token).
-     *
-     * @return void
      */
     public function logout(): void
     {
@@ -78,8 +70,6 @@ class AuthService
 
     /**
      * Refresh token.
-     *
-     * @return array
      */
     public function refresh(): array
     {
@@ -87,14 +77,12 @@ class AuthService
             'user' => auth()->user(),
             'token' => auth()->refresh(),
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth()->factory()->getTTL() * 60,
         ];
     }
 
     /**
      * Get authenticated user profile.
-     *
-     * @return User
      */
     public function profile(): User
     {

@@ -10,22 +10,16 @@ class UserRepository implements UserRepositoryInterface
 {
     /**
      * Create a new user.
-     *
-     * @param array $data
-     * @return User
      */
     public function create(array $data): User
     {
         $data['password'] = Hash::make($data['password']);
-        
+
         return User::create($data);
     }
 
     /**
      * Find a user by email.
-     *
-     * @param string $email
-     * @return User|null
      */
     public function findByEmail(string $email): ?User
     {
@@ -34,9 +28,6 @@ class UserRepository implements UserRepositoryInterface
 
     /**
      * Find a user by ID.
-     *
-     * @param int $id
-     * @return User|null
      */
     public function findById(int $id): ?User
     {
@@ -45,10 +36,6 @@ class UserRepository implements UserRepositoryInterface
 
     /**
      * Update user profile.
-     *
-     * @param User $user
-     * @param array $data
-     * @return User
      */
     public function update(User $user, array $data): User
     {
@@ -57,7 +44,7 @@ class UserRepository implements UserRepositoryInterface
         }
 
         $user->update($data);
-        
+
         return $user->fresh();
     }
 }

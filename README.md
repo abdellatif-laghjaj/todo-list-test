@@ -137,14 +137,7 @@ APP_DEBUG=true
 APP_URL=http://localhost:8000
 ```
 
-### Database Configuration (SQLite - Default)
-
-```env
-DB_CONNECTION=sqlite
-# The database file will be created at database/database.sqlite
-```
-
-### Database Configuration (MySQL - Optional)
+### Database Configuration (MySQL)
 
 ```env
 DB_CONNECTION=mysql
@@ -177,12 +170,9 @@ QUEUE_CONNECTION=database
 
 ## Database Setup
 
-### 1. Create Database File (SQLite)
+### 1. Create Database
 
-```bash
-# Create the SQLite database file
-touch database/database.sqlite
-```
+Go to your database management tool (e.g., phpMyAdmin, MySQL Workbench) and create a new database named `todo-list`.
 
 ### 2. Run Migrations
 
@@ -190,20 +180,28 @@ touch database/database.sqlite
 php artisan migrate
 ```
 
-### 3. Seed Database (Optional)
-
-```bash
-php artisan db:seed
-```
-
 ## Running the Application
 
 ### Development Mode
 
-The easiest way to run the application is using the built-in development script:
+The easiest way to run the application is using the built-in development commands:
+
+#### 1. Start the Laravel Server
 
 ```bash
-composer run dev
+php artisan serve
+```
+
+#### 2. Start the Queue Worker (New Terminal)
+
+```bash
+php artisan queue:work
+```
+
+#### 3. Start Vite Development Server (New Terminal)
+
+```bash
+npm run dev
 ```
 
 This command will start:
@@ -233,12 +231,6 @@ php artisan queue:work
 
 ```bash
 npm run dev
-```
-
-#### 4. Monitor Logs (Optional - New Terminal)
-
-```bash
-php artisan pail
 ```
 
 ### Production Build
@@ -334,16 +326,6 @@ todo-list-test/
     - Add routes in `resources/js/router/index.js`
     - Create Pinia stores in `resources/js/stores/`
 
-4. **Testing**
-
-    ```bash
-    # Run PHP tests
-    composer test
-
-    # Run with coverage
-    php artisan test --coverage
-    ```
-
 ### Code Style
 
 -   **PHP**: Follow PSR-12 coding standards
@@ -357,27 +339,6 @@ todo-list-test/
 # Format JavaScript/Vue code
 npm run lint
 ```
-
-## Testing
-
-### Running Tests
-
-```bash
-# Run all tests
-composer test
-
-# Run specific test
-php artisan test --filter=TaskTest
-
-# Run with coverage
-php artisan test --coverage
-```
-
-### Writing Tests
-
--   Place unit tests in `tests/Unit/`
--   Place feature tests in `tests/Feature/`
--   Follow Laravel testing conventions
 
 ## Contributing
 
@@ -461,16 +422,3 @@ composer clear-cache
 rm -rf vendor composer.lock
 composer install
 ```
-
-### Getting Help
-
-If you encounter issues:
-
-1. Check the [Laravel documentation](https://laravel.com/docs)
-2. Check the [Vue.js documentation](https://vuejs.org/guide/)
-3. Search existing [GitHub issues](https://github.com/abdellatif-laghjaj/todo-list-test/issues)
-4. Create a new issue with detailed information
-
-## License
-
-This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

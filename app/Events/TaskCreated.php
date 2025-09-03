@@ -4,9 +4,7 @@ namespace App\Events;
 
 use App\Models\Task;
 use App\Models\User;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -17,6 +15,7 @@ class TaskCreated implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $task;
+
     public $user;
 
     /**
@@ -36,19 +35,17 @@ class TaskCreated implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('tasks.' . $this->user->id),
+            new PrivateChannel('tasks.'.$this->user->id),
         ];
     }
 
     /**
      * Get the data that should be broadcast.
-     *
-     * @return array
      */
     public function broadcastWith(): array
     {
         return [
-            'message' => 'A new task "' . $this->task->title . '" has been created successfully!',
+            'message' => 'A new task "'.$this->task->title.'" has been created successfully!',
             'task' => $this->task,
             'type' => 'task_created',
             'timestamp' => now()->toDateTimeString(),
@@ -57,8 +54,6 @@ class TaskCreated implements ShouldBroadcast
 
     /**
      * The event's broadcast name.
-     *
-     * @return string
      */
     public function broadcastAs(): string
     {

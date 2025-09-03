@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use App\Events\TaskCreated;
-use App\Events\TaskUpdated;
 use App\Events\TaskDeleted;
+use App\Events\TaskUpdated;
 use App\Models\Task;
 use App\Models\User;
 use App\Repositories\Interfaces\TaskRepositoryInterface;
@@ -22,10 +22,6 @@ class TaskService
 
     /**
      * Get paginated tasks for the authenticated user.
-     *
-     * @param User $user
-     * @param array $filters
-     * @return LengthAwarePaginator
      */
     public function getUserTasks(User $user, array $filters = []): LengthAwarePaginator
     {
@@ -35,16 +31,13 @@ class TaskService
     /**
      * Get a specific task for the authenticated user.
      *
-     * @param int $id
-     * @param User $user
-     * @return Task
      * @throws ModelNotFoundException
      */
     public function getTask(int $id, User $user): Task
     {
         $task = $this->taskRepository->findByIdForUser($id, $user);
 
-        if (!$task) {
+        if (! $task) {
             throw new ModelNotFoundException('Task not found or you do not have permission to access it.');
         }
 
@@ -53,10 +46,6 @@ class TaskService
 
     /**
      * Create a new task.
-     *
-     * @param array $data
-     * @param User $user
-     * @return Task
      */
     public function createTask(array $data, User $user): Task
     {
@@ -71,10 +60,6 @@ class TaskService
     /**
      * Update an existing task.
      *
-     * @param int $id
-     * @param array $data
-     * @param User $user
-     * @return Task
      * @throws ModelNotFoundException
      */
     public function updateTask(int $id, array $data, User $user): Task
@@ -91,9 +76,6 @@ class TaskService
     /**
      * Delete a task.
      *
-     * @param int $id
-     * @param User $user
-     * @return bool
      * @throws ModelNotFoundException
      */
     public function deleteTask(int $id, User $user): bool
@@ -111,9 +93,6 @@ class TaskService
 
     /**
      * Get tasks statistics for a user.
-     *
-     * @param User $user
-     * @return array
      */
     public function getTasksStats(User $user): array
     {
