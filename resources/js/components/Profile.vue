@@ -183,8 +183,10 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useAuthStore } from "@/stores/auth";
+import { useRouter } from "vue-router";
 
 const authStore = useAuthStore();
+const router = useRouter();
 
 const profileForm = ref({
     name: "",
@@ -216,12 +218,11 @@ const updateProfile = async () => {
 const changePassword = async () => {
     try {
         await authStore.changePassword(passwordForm.value);
-        alert("Password changed successfully!");
-        passwordForm.value = {
-            current_password: "",
-            password: "",
-            password_confirmation: "",
-        };
+        alert(
+            "Password changed successfully! Please log in again with your new password.",
+        );
+        await authStore.logout();
+        router.push("/login");
     } catch (error) {
         // Error is handled by the store
     }
