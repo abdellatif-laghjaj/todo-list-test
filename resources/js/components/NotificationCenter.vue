@@ -2,10 +2,10 @@
     <div class="fixed top-20 right-4 z-[9999] w-80 max-w-sm">
         <TransitionGroup name="notification" tag="div" class="space-y-2">
             <NotificationToast
-                v-for="notification in notifications"
+                v-for="notification in toasts"
                 :key="notification.id"
                 :notification="notification"
-                @dismiss="removeNotification"
+                @dismiss="removeToast"
             />
         </TransitionGroup>
     </div>
@@ -20,11 +20,11 @@ import NotificationToast from "@/components/NotificationToast.vue";
 const notificationsStore = useNotificationStore();
 
 // Computed properties
-const notifications = computed(() => notificationsStore.notifications);
+const toasts = computed(() => notificationsStore.toasts);
 
 // Methods
-const removeNotification = (id) => {
-    notificationsStore.removeNotification(id);
+const removeToast = (id) => {
+    notificationsStore.removeToast(id);
 };
 </script>
 

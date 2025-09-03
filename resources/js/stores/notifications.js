@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 export const useNotificationStore = defineStore("notifications", {
     state: () => ({
         notifications: [],
+        toasts: [],
         unreadCount: 0,
     }),
 
@@ -26,6 +27,7 @@ export const useNotificationStore = defineStore("notifications", {
             };
 
             this.notifications.unshift(newNotification);
+            this.toasts.unshift(newNotification);
             this.unreadCount++;
 
             // Show browser notification if permission granted
@@ -64,6 +66,16 @@ export const useNotificationStore = defineStore("notifications", {
                     this.unreadCount = Math.max(0, this.unreadCount - 1);
                 }
                 this.notifications.splice(index, 1);
+            }
+        },
+
+        /**
+         * Remove toast
+         */
+        removeToast(id) {
+            const index = this.toasts.findIndex((t) => t.id === id);
+            if (index !== -1) {
+                this.toasts.splice(index, 1);
             }
         },
 
