@@ -98,9 +98,9 @@ graph TD
     F --> G
     O --> D
 
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style L fill:#bbf,stroke:#333,stroke-width:2px
-    style N fill:#ffc,stroke:#333,stroke-width:2px
+    style A fill:#ff6b6b,stroke:#333,stroke-width:2px,color:#fff
+    style L fill:#74c0fc,stroke:#333,stroke-width:2px,color:#fff
+    style N fill:#69db7c,stroke:#333,stroke-width:2px,color:#fff
 ```
 
 ## Tech Stack
