@@ -155,22 +155,40 @@
 
 .nav-link {
     position: relative;
+    display: inline-block;
     padding: var(--space-lg) var(--space-sm);
     font-weight: 500;
     color: rgb(107 114 128);
     text-decoration: none;
     transition: all var(--transition-fast);
-    border-bottom: 2px solid transparent;
+}
+
+.nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: var(--space-sm);
+    right: var(--space-sm);
+    height: 2px;
+    background-color: transparent;
+    transition: all var(--transition-fast);
+    border-radius: 1px;
+}
+
+.nav-link:hover::after {
+    background-color: rgb(209 213 219);
+}
+
+.nav-link.active::after {
+    background-color: rgb(99 102 241);
 }
 
 .nav-link:hover {
     color: rgb(55 65 81);
-    border-bottom-color: rgb(209 213 219);
 }
 
 .nav-link.active {
     color: rgb(55 65 81);
-    border-bottom-color: rgb(99 102 241);
 }
 
 /* Dropdown Improvements */
