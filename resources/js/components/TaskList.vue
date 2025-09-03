@@ -238,7 +238,7 @@
                     {{
                         Math.min(
                             currentPage * itemsPerPage,
-                            filteredTasks.length
+                            filteredTasks.length,
                         )
                     }}
                     of {{ filteredTasks.length }} results
@@ -368,14 +368,14 @@ const activeFiltersText = computed(() => {
     if (selectedStatus.value !== "all") {
         filters.push(
             statusFilters.value.find((s) => s.value === selectedStatus.value)
-                ?.label
+                ?.label,
         );
     }
     if (selectedPriority.value !== "all") {
         filters.push(
             priorityFilters.value.find(
-                (p) => p.value === selectedPriority.value
-            )?.label
+                (p) => p.value === selectedPriority.value,
+            )?.label,
         );
     }
     if (searchQuery.value.trim()) {
@@ -409,7 +409,7 @@ const filteredTasks = computed(() => {
     // Filter by priority
     if (selectedPriority.value !== "all") {
         tasks = tasks.filter(
-            (task) => task.priority === selectedPriority.value
+            (task) => task.priority === selectedPriority.value,
         );
     }
 
@@ -419,18 +419,18 @@ const filteredTasks = computed(() => {
         tasks = tasks.filter(
             (task) =>
                 task.title.toLowerCase().includes(query) ||
-                task.description.toLowerCase().includes(query)
+                task.description.toLowerCase().includes(query),
         );
     }
 
     // Sort by created_at (newest first)
     return tasks.sort(
-        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+        (a, b) => new Date(b.created_at) - new Date(a.created_at),
     );
 });
 
 const totalPages = computed(() =>
-    Math.ceil(filteredTasks.value.length / itemsPerPage)
+    Math.ceil(filteredTasks.value.length / itemsPerPage),
 );
 
 const paginatedTasks = computed(() => {

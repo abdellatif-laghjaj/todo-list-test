@@ -43,18 +43,18 @@
                                       notification.type === 'error'
                                           ? 'red'
                                           : notification.type === 'warning'
-                                          ? 'yellow'
-                                          : notification.type === 'success'
-                                          ? 'green'
-                                          : 'blue'
+                                            ? 'yellow'
+                                            : notification.type === 'success'
+                                              ? 'green'
+                                              : 'blue'
                                   }-600 text-white hover:bg-${
                                       notification.type === 'error'
                                           ? 'red'
                                           : notification.type === 'warning'
-                                          ? 'yellow'
-                                          : notification.type === 'success'
-                                          ? 'green'
-                                          : 'blue'
+                                            ? 'yellow'
+                                            : notification.type === 'success'
+                                              ? 'green'
+                                              : 'blue'
                                   }-700`
                                 : 'text-gray-600 hover:text-gray-800 border border-gray-300 hover:border-gray-400',
                         ]"

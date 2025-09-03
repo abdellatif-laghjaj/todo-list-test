@@ -36,9 +36,8 @@ export const useAuthStore = defineStore("auth", {
                 localStorage.setItem("auth_token", token);
 
                 // Set default authorization header
-                axios.defaults.headers.common[
-                    "Authorization"
-                ] = `Bearer ${token}`;
+                axios.defaults.headers.common["Authorization"] =
+                    `Bearer ${token}`;
 
                 return response.data;
             } catch (error) {
@@ -67,9 +66,8 @@ export const useAuthStore = defineStore("auth", {
                 localStorage.setItem("auth_token", token);
 
                 // Set default authorization header
-                axios.defaults.headers.common[
-                    "Authorization"
-                ] = `Bearer ${token}`;
+                axios.defaults.headers.common["Authorization"] =
+                    `Bearer ${token}`;
 
                 return response.data;
             } catch (error) {
@@ -128,9 +126,8 @@ export const useAuthStore = defineStore("auth", {
 
                 this.token = token;
                 localStorage.setItem("auth_token", token);
-                axios.defaults.headers.common[
-                    "Authorization"
-                ] = `Bearer ${token}`;
+                axios.defaults.headers.common["Authorization"] =
+                    `Bearer ${token}`;
 
                 return response.data;
             } catch (error) {
@@ -148,9 +145,8 @@ export const useAuthStore = defineStore("auth", {
             const token = localStorage.getItem("auth_token");
             if (token) {
                 this.token = token;
-                axios.defaults.headers.common[
-                    "Authorization"
-                ] = `Bearer ${token}`;
+                axios.defaults.headers.common["Authorization"] =
+                    `Bearer ${token}`;
                 this.getProfile();
             }
             this.isInitialized = true;

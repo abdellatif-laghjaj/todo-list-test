@@ -176,8 +176,8 @@
                                 isLoading
                                     ? "Saving..."
                                     : isEditing
-                                    ? "Update Task"
-                                    : "Create Task"
+                                      ? "Update Task"
+                                      : "Create Task"
                             }}</span>
                         </button>
                     </div>
@@ -236,7 +236,7 @@ const handleSubmit = async () => {
         if (isEditing.value) {
             const updatedTask = await tasksStore.updateTask(
                 props.task.id,
-                form.value
+                form.value,
             );
             emit("updated", updatedTask);
         } else {

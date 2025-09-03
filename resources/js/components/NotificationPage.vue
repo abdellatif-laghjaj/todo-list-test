@@ -119,7 +119,7 @@
                                     >
                                         <span>{{
                                             formatRelativeDate(
-                                                notification.created_at
+                                                notification.created_at,
                                             )
                                         }}</span>
                                         <span
@@ -184,13 +184,13 @@ const isLoading = ref(false);
 
 // Computed properties
 const unreadCount = computed(
-    () => notificationStore.notifications.filter((n) => !n.read).length
+    () => notificationStore.notifications.filter((n) => !n.read).length,
 );
 
 const sortedNotifications = computed(() =>
     [...notificationStore.notifications].sort(
-        (a, b) => new Date(b.created_at) - new Date(a.created_at)
-    )
+        (a, b) => new Date(b.created_at) - new Date(a.created_at),
+    ),
 );
 
 // Methods

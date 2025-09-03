@@ -318,10 +318,10 @@
                         class="task-card p-4 transition-all duration-200"
                         :class="{
                             'border-red-200 bg-red-50': isOverdue(
-                                task.due_date
+                                task.due_date,
                             ),
                             'border-yellow-200 bg-yellow-50': isDueSoon(
-                                task.due_date
+                                task.due_date,
                             ),
                         }"
                         :style="{ animationDelay: `${0.8 + index * 0.1}s` }"
@@ -346,8 +346,8 @@
                                             isOverdue(task.due_date)
                                                 ? 'text-red-600'
                                                 : isDueSoon(task.due_date)
-                                                ? 'text-yellow-600'
-                                                : 'text-gray-500'
+                                                  ? 'text-yellow-600'
+                                                  : 'text-gray-500'
                                         "
                                     >
                                         {{ formatDueDate(task.due_date) }}
