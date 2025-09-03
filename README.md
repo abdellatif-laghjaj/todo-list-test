@@ -43,6 +43,9 @@ A modern, full-stack todo list application built with Laravel (backend) and Vue.
 -   **Vue.js SPA**: Single Page Application with Vue Router
 -   **State Management**: Centralized state management with Pinia
 -   **Event Broadcasting**: Real-time task updates across sessions
+-   **Profile Management**: 
+    -   Update User Information
+    -   Update User Password
 
 ### 🛡️ Security Features
 
