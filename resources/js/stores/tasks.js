@@ -95,7 +95,7 @@ export const useTaskStore = defineStore("tasks", {
                 // Add to beginning of tasks array
                 this.tasks.unshift(newTask);
 
-                return response.data;
+                return newTask;
             } catch (error) {
                 this.error =
                     error.response?.data?.message || "Failed to create task";
@@ -127,7 +127,7 @@ export const useTaskStore = defineStore("tasks", {
                     this.currentTask = updatedTask;
                 }
 
-                return response.data;
+                return updatedTask;
             } catch (error) {
                 this.error =
                     error.response?.data?.message || "Failed to update task";
