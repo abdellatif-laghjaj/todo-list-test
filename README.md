@@ -61,6 +61,8 @@ A modern, full-stack todo list application built with Laravel (backend) and Vue.
 
 <img width="1199" height="904" alt="image" src="https://github.com/user-attachments/assets/b8b4b91c-0233-4156-9f07-71c326c1527c" />
 
+<img width="1915" height="907" alt="image" src="https://github.com/user-attachments/assets/5f3ee840-1356-4b86-85bf-e0248d0c9511" />
+
 <img width="1920" height="1295" alt="image" src="https://github.com/user-attachments/assets/376cde19-f6ae-43ec-9bd4-e8df94f4bb91" />
 
 <img width="1901" height="904" alt="image" src="https://github.com/user-attachments/assets/95611b45-d886-4048-a21d-e8b1ccc0d333" />
