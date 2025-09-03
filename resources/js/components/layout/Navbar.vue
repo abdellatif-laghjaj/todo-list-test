@@ -92,7 +92,7 @@
                     <div class="dropdown" ref="userDropdown">
                         <button
                             @click="toggleUserMenu"
-                            class="dropdown-trigger ml-2"
+                            class="dropdown-trigger ml-2 focus:outline-none"
                             aria-haspopup="true"
                             :aria-expanded="showUserMenu"
                         >
@@ -152,31 +152,9 @@
                             </div>
 
                             <!-- Menu Items -->
-                            <router-link
-                                to="/profile"
-                                class="dropdown-item"
-                                @click="closeUserMenu"
-                                role="menuitem"
-                            >
-                                <svg
-                                    class="w-4 h-4 mr-3 text-gray-400"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                                    />
-                                </svg>
-                                Profile
-                            </router-link>
-                            <hr class="border-gray-100 my-1" />
                             <button
                                 @click="handleLogout"
-                                class="dropdown-item w-full text-left text-red-600 hover:bg-red-50"
+                                class="dropdown-item w-full text-left text-red-600 hover:bg-red-50 flex items-center"
                                 role="menuitem"
                             >
                                 <svg
