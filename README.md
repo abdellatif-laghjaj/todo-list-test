@@ -239,31 +239,6 @@ php artisan migrate
 
 ### Development Mode
 
-The easiest way to run the application is using the built-in development commands:
-
-#### 1. Start the Laravel Server
-
-```bash
-php artisan serve
-```
-
-#### 3. Start Vite Development Server (New Terminal)
-
-```bash
-npm run dev
-```
-
-This command will start:
-
--   Laravel development server (http://localhost:8000)
--   Queue worker
--   Log monitoring
--   Vite development server for hot reloading
-
-### Manual Setup
-
-If you prefer to run services individually:
-
 #### 1. Start the Laravel Server
 
 ```bash
