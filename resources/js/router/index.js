@@ -11,7 +11,11 @@ import NotificationPage from "../components/NotificationPage.vue";
 const routes = [
     {
         path: "/",
-        redirect: "/dashboard",
+        redirect: (to) => {
+            // Check if user is authenticated
+            const token = localStorage.getItem("auth_token");
+            return token ? "/dashboard" : "/login";
+        },
     },
     {
         path: "/login",
@@ -72,6 +76,11 @@ const router = createRouter({
 // Navigation guards
 router.beforeEach((to, from, next) => {
     const authStore = useAuthStore();
+
+    // Initialize auth store if not already done
+    if (!authStore.isInitialized) {
+        authStore.initializeAuth();
+    }
 
     // Set page title
     document.title = to.meta.title

@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+// Redirect root to Vue app
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/app');
 });
 
 // Vue.js SPA route

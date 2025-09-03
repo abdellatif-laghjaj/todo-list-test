@@ -385,60 +385,6 @@
             </div>
         </div>
 
-        <!-- Quick Actions -->
-        <div class="card card-padding fade-in" style="animation-delay: 0.8s">
-            <div class="mb-6">
-                <h3 class="text-xl font-semibold text-gray-900 mb-1">
-                    Quick Actions
-                </h3>
-                <p class="text-gray-600">Manage your tasks efficiently</p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <button
-                    @click="showCreateTask = true"
-                    class="quick-action-card bg-gradient-to-br from-blue-50 to-indigo-50 text-blue-700"
-                >
-                    <PlusIcon class="h-6 w-6 mb-2" />
-                    <span class="font-semibold">New Task</span>
-                    <span class="text-xs opacity-75">Create a task</span>
-                </button>
-
-                <router-link
-                    to="/tasks?status=pending"
-                    class="quick-action-card bg-gradient-to-br from-yellow-50 to-orange-50 text-yellow-700"
-                >
-                    <ClockIcon class="h-6 w-6 mb-2" />
-                    <span class="font-semibold">View Pending</span>
-                    <span class="text-xs opacity-75"
-                        >{{ stats.pending }} tasks</span
-                    >
-                </router-link>
-
-                <router-link
-                    to="/tasks?status=in_progress"
-                    class="quick-action-card bg-gradient-to-br from-blue-50 to-cyan-50 text-blue-700"
-                >
-                    <PlayIcon class="h-6 w-6 mb-2" />
-                    <span class="font-semibold">In Progress</span>
-                    <span class="text-xs opacity-75"
-                        >{{ stats.in_progress }} tasks</span
-                    >
-                </router-link>
-
-                <router-link
-                    to="/tasks?status=completed"
-                    class="quick-action-card bg-gradient-to-br from-green-50 to-emerald-50 text-green-700"
-                >
-                    <CheckCircleIcon class="h-6 w-6 mb-2" />
-                    <span class="font-semibold">Completed</span>
-                    <span class="text-xs opacity-75"
-                        >{{ stats.completed }} tasks</span
-                    >
-                </router-link>
-            </div>
-        </div>
-
         <!-- Task Creation Modal -->
         <TaskForm
             v-if="showCreateTask"
@@ -619,12 +565,6 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* Quick Action Cards */
-.quick-action-card {
-    @apply flex flex-col items-center justify-center p-6 rounded-xl text-center;
-    min-height: 120px;
-}
-
 /* Enhanced animations */
 .fade-in {
     opacity: 0;
@@ -666,11 +606,6 @@ onUnmounted(() => {
 
 /* Responsive design improvements */
 @media (max-width: 640px) {
-    .quick-action-card {
-        min-height: 100px;
-        padding: 1rem;
-    }
-
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
     }

@@ -7,6 +7,7 @@ export const useAuthStore = defineStore("auth", {
         token: localStorage.getItem("auth_token"),
         isLoading: false,
         error: null,
+        isInitialized: false,
     }),
 
     getters: {
@@ -92,6 +93,7 @@ export const useAuthStore = defineStore("auth", {
                 this.user = null;
                 this.token = null;
                 this.error = null;
+                this.isInitialized = false;
 
                 // Remove token from localStorage
                 localStorage.removeItem("auth_token");
@@ -141,6 +143,8 @@ export const useAuthStore = defineStore("auth", {
          * Initialize auth state from localStorage
          */
         initializeAuth() {
+            if (this.isInitialized) return;
+
             const token = localStorage.getItem("auth_token");
             if (token) {
                 this.token = token;
@@ -149,6 +153,7 @@ export const useAuthStore = defineStore("auth", {
                 ] = `Bearer ${token}`;
                 this.getProfile();
             }
+            this.isInitialized = true;
         },
     },
 });

@@ -125,10 +125,10 @@
                             v-model="searchQuery"
                             type="text"
                             placeholder="Search tasks by title or description..."
-                            class="form-input pl-10"
+                            class="form-input pl-12"
                         />
                         <div
-                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                            class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
                         >
                             <svg
                                 class="h-5 w-5 text-gray-400"
