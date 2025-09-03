@@ -1,236 +1,384 @@
 <template>
-    <div class="space-y-6">
+    <div class="dashboard-container">
         <!-- Welcome Header -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h1 class="text-2xl font-bold text-gray-900">
+        <div class="card card-padding mb-8 slide-up">
+            <div
+                class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4"
+            >
+                <div class="flex-1">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">
                         Welcome back,
                         {{ user?.display_name || user?.name || "User" }}!
                     </h1>
-                    <p class="text-gray-600 mt-1">
+                    <p class="text-gray-600 text-lg">
                         Here's an overview of your tasks and productivity.
                     </p>
                 </div>
-                <div class="text-right">
-                    <p class="text-sm text-gray-500">{{ currentDate }}</p>
-                    <p class="text-sm text-gray-500">{{ currentTime }}</p>
+                <div
+                    class="flex flex-col sm:flex-row sm:items-center gap-4 text-right"
+                >
+                    <div
+                        class="bg-gradient-to-r from-blue-50 to-indigo-50 px-4 py-3 rounded-lg border border-blue-100"
+                    >
+                        <p class="text-sm font-medium text-gray-700">
+                            {{ currentDate }}
+                        </p>
+                        <p class="text-2xl font-bold text-indigo-600">
+                            {{ currentTime }}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Statistics Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="stats-grid mb-8">
             <!-- Total Tasks -->
             <div
-                class="bg-white rounded-lg shadow-sm border border-gray-200 p-6"
+                class="card card-padding-sm hover:shadow-lg transition-all duration-300 fade-in"
+                style="animation-delay: 0.1s"
             >
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <ClipboardDocumentListIcon
-                            class="h-8 w-8 text-blue-600"
-                        />
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-shrink-0">
+                            <div
+                                class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center"
+                            >
+                                <ClipboardDocumentListIcon
+                                    class="h-6 w-6 text-blue-600"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-500 mb-1">
+                                Total Tasks
+                            </p>
+                            <p class="text-3xl font-bold text-gray-900">
+                                {{ stats.total }}
+                            </p>
+                        </div>
                     </div>
-                    <div class="ml-4">
-                        <p class="text-sm font-medium text-gray-500">
-                            Total Tasks
-                        </p>
-                        <p class="text-2xl font-bold text-gray-900">
-                            {{ stats.total }}
-                        </p>
+                    <div class="text-right">
+                        <div class="text-xs text-gray-500">All Time</div>
                     </div>
                 </div>
             </div>
 
             <!-- Pending Tasks -->
             <div
-                class="bg-white rounded-lg shadow-sm border border-gray-200 p-6"
+                class="card card-padding-sm hover:shadow-lg transition-all duration-300 fade-in"
+                style="animation-delay: 0.2s"
             >
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <ClockIcon class="h-8 w-8 text-yellow-600" />
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-shrink-0">
+                            <div
+                                class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center"
+                            >
+                                <ClockIcon class="h-6 w-6 text-yellow-600" />
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-500 mb-1">
+                                Pending
+                            </p>
+                            <p class="text-3xl font-bold text-gray-900">
+                                {{ stats.pending }}
+                            </p>
+                        </div>
                     </div>
-                    <div class="ml-4">
-                        <p class="text-sm font-medium text-gray-500">Pending</p>
-                        <p class="text-2xl font-bold text-gray-900">
-                            {{ stats.pending }}
-                        </p>
+                    <div class="text-right">
+                        <div class="text-xs text-yellow-600 font-medium">
+                            {{ pendingPercentage }}%
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- In Progress Tasks -->
             <div
-                class="bg-white rounded-lg shadow-sm border border-gray-200 p-6"
+                class="card card-padding-sm hover:shadow-lg transition-all duration-300 fade-in"
+                style="animation-delay: 0.3s"
             >
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <PlayIcon class="h-8 w-8 text-blue-600" />
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-shrink-0">
+                            <div
+                                class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center"
+                            >
+                                <PlayIcon class="h-6 w-6 text-blue-600" />
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-500 mb-1">
+                                In Progress
+                            </p>
+                            <p class="text-3xl font-bold text-gray-900">
+                                {{ stats.in_progress }}
+                            </p>
+                        </div>
                     </div>
-                    <div class="ml-4">
-                        <p class="text-sm font-medium text-gray-500">
-                            In Progress
-                        </p>
-                        <p class="text-2xl font-bold text-gray-900">
-                            {{ stats.in_progress }}
-                        </p>
+                    <div class="text-right">
+                        <div class="text-xs text-blue-600 font-medium">
+                            {{ inProgressPercentage }}%
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Completed Tasks -->
             <div
-                class="bg-white rounded-lg shadow-sm border border-gray-200 p-6"
+                class="card card-padding-sm hover:shadow-lg transition-all duration-300 fade-in"
+                style="animation-delay: 0.4s"
             >
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <CheckCircleIcon class="h-8 w-8 text-green-600" />
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-shrink-0">
+                            <div
+                                class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center"
+                            >
+                                <CheckCircleIcon
+                                    class="h-6 w-6 text-green-600"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-500 mb-1">
+                                Completed
+                            </p>
+                            <p class="text-3xl font-bold text-gray-900">
+                                {{ stats.completed }}
+                            </p>
+                        </div>
                     </div>
-                    <div class="ml-4">
-                        <p class="text-sm font-medium text-gray-500">
-                            Completed
-                        </p>
-                        <p class="text-2xl font-bold text-gray-900">
-                            {{ stats.completed }}
-                        </p>
+                    <div class="text-right">
+                        <div class="text-xs text-green-600 font-medium">
+                            {{ completionPercentage }}%
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Progress Bar -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="text-lg font-semibold text-gray-900">
-                    Overall Progress
-                </h3>
-                <span class="text-sm font-medium text-gray-600">
-                    {{ completionPercentage }}% Complete
-                </span>
+        <!-- Progress Section -->
+        <div
+            class="card card-padding mb-8 fade-in"
+            style="animation-delay: 0.5s"
+        >
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-1">
+                        Overall Progress
+                    </h3>
+                    <p class="text-gray-600">Track your productivity journey</p>
+                </div>
+                <div class="text-right">
+                    <span class="text-3xl font-bold text-indigo-600">
+                        {{ completionPercentage }}%
+                    </span>
+                    <p class="text-sm text-gray-500">Complete</p>
+                </div>
             </div>
-            <div class="w-full bg-gray-200 rounded-full h-3">
+
+            <div class="progress-bar mb-4">
                 <div
-                    class="bg-gradient-to-r from-blue-500 to-green-500 h-3 rounded-full transition-all duration-300"
+                    class="progress-fill"
                     :style="{ width: `${completionPercentage}%` }"
                 ></div>
             </div>
-            <div class="flex justify-between text-xs text-gray-500 mt-2">
-                <span>{{ stats.completed }} completed</span>
-                <span>{{ stats.total }} total</span>
+
+            <div class="flex justify-between items-center text-sm">
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                        <span class="text-gray-600"
+                            >{{ stats.completed }} completed</span
+                        >
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+                        <span class="text-gray-600"
+                            >{{ stats.in_progress }} in progress</span
+                        >
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 bg-gray-400 rounded-full"></div>
+                        <span class="text-gray-600"
+                            >{{ stats.pending }} pending</span
+                        >
+                    </div>
+                </div>
+                <span class="font-medium text-gray-700"
+                    >{{ stats.total }} total</span
+                >
             </div>
         </div>
 
         <!-- Recent Tasks and Upcoming Deadlines -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 mb-8">
             <!-- Recent Tasks -->
             <div
-                class="bg-white rounded-lg shadow-sm border border-gray-200 p-6"
+                class="card card-padding fade-in"
+                style="animation-delay: 0.6s"
             >
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-lg font-semibold text-gray-900">
-                        Recent Tasks
-                    </h3>
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-1">
+                            Recent Tasks
+                        </h3>
+                        <p class="text-gray-600">Your latest activity</p>
+                    </div>
                     <router-link
                         to="/tasks"
-                        class="text-sm text-blue-600 hover:text-blue-500 font-medium"
+                        class="btn btn-ghost text-sm font-medium"
                     >
-                        View all
+                        View all →
                     </router-link>
                 </div>
-                <div class="space-y-3">
+
+                <div class="space-y-4">
                     <div
-                        v-for="task in recentTasks"
+                        v-for="(task, index) in recentTasks"
                         :key="task.id"
-                        class="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                        class="task-card p-4 hover:shadow-md transition-all duration-200"
+                        :class="{
+                            'task-completed': task.status === 'completed',
+                            'task-high-priority': task.priority === 'high',
+                            'task-medium-priority': task.priority === 'medium',
+                            'task-low-priority': task.priority === 'low',
+                        }"
+                        :style="{ animationDelay: `${0.7 + index * 0.1}s` }"
                     >
-                        <div class="flex items-center space-x-3">
+                        <div class="flex items-center justify-between">
                             <div
-                                :class="[
-                                    'w-3 h-3 rounded-full',
-                                    statusColors[task.status],
-                                ]"
-                            ></div>
-                            <div>
-                                <p
-                                    class="text-sm font-medium text-gray-900 truncate"
-                                >
-                                    {{ task.title }}
-                                </p>
-                                <p class="text-xs text-gray-500">
-                                    {{ formatRelativeDate(task.created_at) }}
-                                </p>
+                                class="flex items-center space-x-3 flex-1 min-w-0"
+                            >
+                                <div
+                                    class="status-dot"
+                                    :class="task.status"
+                                ></div>
+                                <div class="flex-1 min-w-0">
+                                    <h4
+                                        class="text-sm font-semibold text-gray-900 truncate"
+                                    >
+                                        {{ task.title }}
+                                    </h4>
+                                    <p class="text-xs text-gray-500 mt-1">
+                                        {{
+                                            formatRelativeDate(task.created_at)
+                                        }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="priority-badge" :class="task.priority">
+                                {{ task.priority }}
                             </div>
                         </div>
-                        <span
-                            :class="[
-                                'inline-flex items-center px-2 py-1 rounded-full text-xs font-medium',
-                                priorityColors[task.priority],
-                            ]"
-                        >
-                            {{ task.priority }}
-                        </span>
                     </div>
+
                     <div
                         v-if="recentTasks.length === 0"
-                        class="text-center py-4"
+                        class="text-center py-8"
                     >
-                        <p class="text-gray-500 text-sm">No recent tasks</p>
+                        <div class="text-gray-400 mb-3">
+                            <ClipboardDocumentListIcon
+                                class="w-12 h-12 mx-auto"
+                            />
+                        </div>
+                        <p class="text-gray-500">No recent tasks</p>
+                        <button
+                            @click="showCreateTask = true"
+                            class="btn btn-primary mt-3"
+                        >
+                            Create your first task
+                        </button>
                     </div>
                 </div>
             </div>
 
             <!-- Upcoming Deadlines -->
             <div
-                class="bg-white rounded-lg shadow-sm border border-gray-200 p-6"
+                class="card card-padding fade-in"
+                style="animation-delay: 0.7s"
             >
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-lg font-semibold text-gray-900">
-                        Upcoming Deadlines
-                    </h3>
-                    <CalendarIcon class="h-5 w-5 text-gray-400" />
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-1">
+                            Upcoming Deadlines
+                        </h3>
+                        <p class="text-gray-600">Tasks due soon</p>
+                    </div>
+                    <CalendarIcon class="h-6 w-6 text-gray-400" />
                 </div>
-                <div class="space-y-3">
+
+                <div class="space-y-4">
                     <div
-                        v-for="task in upcomingTasks"
+                        v-for="(task, index) in upcomingTasks"
                         :key="task.id"
-                        class="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                        class="task-card p-4 hover:shadow-md transition-all duration-200"
+                        :class="{
+                            'border-red-200 bg-red-50': isOverdue(
+                                task.due_date
+                            ),
+                            'border-yellow-200 bg-yellow-50': isDueSoon(
+                                task.due_date
+                            ),
+                        }"
+                        :style="{ animationDelay: `${0.8 + index * 0.1}s` }"
                     >
-                        <div class="flex items-center space-x-3">
+                        <div class="flex items-center justify-between">
                             <div
-                                :class="[
-                                    'w-3 h-3 rounded-full',
-                                    statusColors[task.status],
-                                ]"
-                            ></div>
-                            <div>
-                                <p
-                                    class="text-sm font-medium text-gray-900 truncate"
+                                class="flex items-center space-x-3 flex-1 min-w-0"
+                            >
+                                <div
+                                    class="status-dot"
+                                    :class="task.status"
+                                ></div>
+                                <div class="flex-1 min-w-0">
+                                    <h4
+                                        class="text-sm font-semibold text-gray-900 truncate"
+                                    >
+                                        {{ task.title }}
+                                    </h4>
+                                    <p
+                                        class="text-xs mt-1 font-medium"
+                                        :class="
+                                            isOverdue(task.due_date)
+                                                ? 'text-red-600'
+                                                : isDueSoon(task.due_date)
+                                                ? 'text-yellow-600'
+                                                : 'text-gray-500'
+                                        "
+                                    >
+                                        {{ formatDueDate(task.due_date) }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <ExclamationTriangleIcon
+                                    v-if="isOverdue(task.due_date)"
+                                    class="h-5 w-5 text-red-500"
+                                />
+                                <div
+                                    class="priority-badge"
+                                    :class="task.priority"
                                 >
-                                    {{ task.title }}
-                                </p>
-                                <p
-                                    :class="[
-                                        'text-xs',
-                                        isOverdue(task.due_date)
-                                            ? 'text-red-600'
-                                            : 'text-gray-500',
-                                    ]"
-                                >
-                                    {{ formatDueDate(task.due_date) }}
-                                </p>
+                                    {{ task.priority }}
+                                </div>
                             </div>
                         </div>
-                        <ExclamationTriangleIcon
-                            v-if="isOverdue(task.due_date)"
-                            class="h-4 w-4 text-red-500"
-                        />
                     </div>
+
                     <div
                         v-if="upcomingTasks.length === 0"
-                        class="text-center py-4"
+                        class="text-center py-8"
                     >
-                        <p class="text-gray-500 text-sm">
-                            No upcoming deadlines
+                        <div class="text-gray-400 mb-3">
+                            <CalendarIcon class="w-12 h-12 mx-auto" />
+                        </div>
+                        <p class="text-gray-500">No upcoming deadlines</p>
+                        <p class="text-xs text-gray-400 mt-1">
+                            Great job staying on top of things!
                         </p>
                     </div>
                 </div>
@@ -238,38 +386,55 @@
         </div>
 
         <!-- Quick Actions -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">
-                Quick Actions
-            </h3>
+        <div class="card card-padding fade-in" style="animation-delay: 0.8s">
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-1">
+                    Quick Actions
+                </h3>
+                <p class="text-gray-600">Manage your tasks efficiently</p>
+            </div>
+
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <button
                     @click="showCreateTask = true"
-                    class="flex items-center justify-center p-4 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors"
+                    class="quick-action-card bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200 text-blue-700 hover:from-blue-100 hover:to-indigo-100"
                 >
-                    <PlusIcon class="h-5 w-5 mr-2" />
-                    New Task
+                    <PlusIcon class="h-6 w-6 mb-2" />
+                    <span class="font-semibold">New Task</span>
+                    <span class="text-xs opacity-75">Create a task</span>
                 </button>
+
                 <router-link
                     to="/tasks?status=pending"
-                    class="flex items-center justify-center p-4 bg-yellow-50 text-yellow-700 rounded-lg hover:bg-yellow-100 transition-colors"
+                    class="quick-action-card bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-200 text-yellow-700 hover:from-yellow-100 hover:to-orange-100"
                 >
-                    <ClockIcon class="h-5 w-5 mr-2" />
-                    View Pending
+                    <ClockIcon class="h-6 w-6 mb-2" />
+                    <span class="font-semibold">View Pending</span>
+                    <span class="text-xs opacity-75"
+                        >{{ stats.pending }} tasks</span
+                    >
                 </router-link>
+
                 <router-link
                     to="/tasks?status=in_progress"
-                    class="flex items-center justify-center p-4 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors"
+                    class="quick-action-card bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-200 text-blue-700 hover:from-blue-100 hover:to-cyan-100"
                 >
-                    <PlayIcon class="h-5 w-5 mr-2" />
-                    In Progress
+                    <PlayIcon class="h-6 w-6 mb-2" />
+                    <span class="font-semibold">In Progress</span>
+                    <span class="text-xs opacity-75"
+                        >{{ stats.in_progress }} tasks</span
+                    >
                 </router-link>
+
                 <router-link
                     to="/tasks?status=completed"
-                    class="flex items-center justify-center p-4 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 transition-colors"
+                    class="quick-action-card bg-gradient-to-br from-green-50 to-emerald-50 border-green-200 text-green-700 hover:from-green-100 hover:to-emerald-100"
                 >
-                    <CheckCircleIcon class="h-5 w-5 mr-2" />
-                    Completed
+                    <CheckCircleIcon class="h-6 w-6 mb-2" />
+                    <span class="font-semibold">Completed</span>
+                    <span class="text-xs opacity-75"
+                        >{{ stats.completed }} tasks</span
+                    >
                 </router-link>
             </div>
         </div>
@@ -335,6 +500,16 @@ const stats = computed(() => {
 const completionPercentage = computed(() => {
     if (stats.value.total === 0) return 0;
     return Math.round((stats.value.completed / stats.value.total) * 100);
+});
+
+const pendingPercentage = computed(() => {
+    if (stats.value.total === 0) return 0;
+    return Math.round((stats.value.pending / stats.value.total) * 100);
+});
+
+const inProgressPercentage = computed(() => {
+    if (stats.value.total === 0) return 0;
+    return Math.round((stats.value.in_progress / stats.value.total) * 100);
 });
 
 const recentTasks = computed(() => {
@@ -413,6 +588,13 @@ const isOverdue = (dateString) => {
     return new Date(dateString) < new Date();
 };
 
+const isDueSoon = (dateString) => {
+    const now = new Date();
+    const dueDate = new Date(dateString);
+    const diffInDays = Math.ceil((dueDate - now) / (1000 * 60 * 60 * 24));
+    return diffInDays <= 2 && diffInDays >= 0;
+};
+
 const handleTaskCreated = (task) => {
     showCreateTask.value = false;
     notificationsStore.addNotification({
@@ -435,3 +617,83 @@ onUnmounted(() => {
     }
 });
 </script>
+
+<style scoped>
+/* Quick Action Cards */
+.quick-action-card {
+    @apply flex flex-col items-center justify-center p-6 rounded-xl border-2 transition-all duration-300 text-center;
+    min-height: 120px;
+}
+
+.quick-action-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced animations */
+.fade-in {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.slide-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUpFade 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Card hover effects */
+.card:hover {
+    transform: translateY(-1px);
+}
+
+/* Responsive design improvements */
+@media (max-width: 640px) {
+    .quick-action-card {
+        min-height: 100px;
+        padding: 1rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Status indicator improvements */
+.status-dot.pending {
+    background: rgb(156 163 175);
+    box-shadow: 0 0 0 2px rgba(156, 163, 175, 0.2);
+}
+
+.status-dot.in-progress {
+    background: rgb(59 130 246);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.status-dot.completed {
+    background: rgb(34 197 94);
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+}
+</style>

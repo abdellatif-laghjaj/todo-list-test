@@ -1,62 +1,170 @@
 <template>
-    <div class="space-y-6">
-        <!-- Header with Add Button -->
-        <div class="flex justify-between items-center">
-            <div>
-                <h1 class="text-2xl font-bold text-gray-900">My Tasks</h1>
-                <p class="text-gray-600">
-                    {{ filteredTasks.length }}
-                    {{ filteredTasks.length === 1 ? "task" : "tasks" }}
-                </p>
-            </div>
-            <button
-                @click="showCreateForm = true"
-                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2"
+    <div class="dashboard-container">
+        <!-- Header Section -->
+        <div class="card card-padding mb-8 slide-up">
+            <div
+                class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
             >
-                <PlusIcon class="w-4 h-4" />
-                <span>Add Task</span>
-            </button>
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">
+                        My Tasks
+                    </h1>
+                    <p class="text-gray-600 text-lg">
+                        Manage and organize your tasks efficiently
+                    </p>
+                    <div class="flex items-center gap-4 mt-3">
+                        <div class="text-sm text-gray-500">
+                            <span class="font-semibold text-gray-900">{{
+                                filteredTasks.length
+                            }}</span>
+                            {{ filteredTasks.length === 1 ? "task" : "tasks" }}
+                            {{
+                                activeFiltersText
+                                    ? `(${activeFiltersText})`
+                                    : ""
+                            }}
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button
+                        @click="clearAllFilters"
+                        v-if="hasActiveFilters"
+                        class="btn btn-secondary"
+                    >
+                        Clear Filters
+                    </button>
+                    <button
+                        @click="showCreateForm = true"
+                        class="btn btn-primary"
+                    >
+                        <PlusIcon class="w-5 h-5 mr-2" />
+                        Add Task
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <!-- Filters -->
-        <div class="flex flex-wrap gap-4 items-center">
-            <div class="flex space-x-2">
-                <button
-                    v-for="status in statusFilters"
-                    :key="status.value"
-                    @click="selectedStatus = status.value"
-                    :class="[
-                        'px-3 py-1 rounded-full text-sm font-medium transition-colors',
-                        selectedStatus === status.value
-                            ? 'bg-blue-100 text-blue-800'
-                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
-                    ]"
-                >
-                    {{ status.label }}
-                </button>
-            </div>
-            <div class="flex space-x-2">
-                <button
-                    v-for="priority in priorityFilters"
-                    :key="priority.value"
-                    @click="selectedPriority = priority.value"
-                    :class="[
-                        'px-3 py-1 rounded-full text-sm font-medium transition-colors',
-                        selectedPriority === priority.value
-                            ? 'bg-blue-100 text-blue-800'
-                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
-                    ]"
-                >
-                    {{ priority.label }}
-                </button>
-            </div>
-            <div class="flex-1 max-w-md">
-                <input
-                    v-model="searchQuery"
-                    type="text"
-                    placeholder="Search tasks..."
-                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
+        <!-- Filters Section -->
+        <div
+            class="card card-padding mb-8 fade-in"
+            style="animation-delay: 0.1s"
+        >
+            <div class="space-y-4">
+                <!-- Status Filters -->
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-700 mb-3">
+                        Status
+                    </h4>
+                    <div class="filter-pills">
+                        <button
+                            v-for="status in statusFilters"
+                            :key="status.value"
+                            @click="selectedStatus = status.value"
+                            class="filter-pill"
+                            :class="{ active: selectedStatus === status.value }"
+                        >
+                            <span
+                                class="status-dot"
+                                :class="
+                                    status.value === 'all'
+                                        ? 'bg-gray-400'
+                                        : status.value.replace('_', '-')
+                                "
+                                v-if="status.value !== 'all'"
+                            ></span>
+                            {{ status.label }}
+                            <span
+                                v-if="status.count !== undefined"
+                                class="ml-1 text-xs opacity-75"
+                                >({{ status.count }})</span
+                            >
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Priority Filters -->
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-700 mb-3">
+                        Priority
+                    </h4>
+                    <div class="filter-pills">
+                        <button
+                            v-for="priority in priorityFilters"
+                            :key="priority.value"
+                            @click="selectedPriority = priority.value"
+                            class="filter-pill"
+                            :class="{
+                                active: selectedPriority === priority.value,
+                            }"
+                        >
+                            <div
+                                v-if="priority.value !== 'all'"
+                                class="priority-badge"
+                                :class="priority.value"
+                            >
+                                {{ priority.value }}
+                            </div>
+                            <span v-else>{{ priority.label }}</span>
+                            <span
+                                v-if="priority.count !== undefined"
+                                class="ml-1 text-xs opacity-75"
+                                >({{ priority.count }})</span
+                            >
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Search -->
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-700 mb-3">
+                        Search
+                    </h4>
+                    <div class="relative max-w-md">
+                        <input
+                            v-model="searchQuery"
+                            type="text"
+                            placeholder="Search tasks by title or description..."
+                            class="form-input pl-10"
+                        />
+                        <div
+                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                        >
+                            <svg
+                                class="h-5 w-5 text-gray-400"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                                />
+                            </svg>
+                        </div>
+                        <button
+                            v-if="searchQuery"
+                            @click="searchQuery = ''"
+                            class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                        >
+                            <svg
+                                class="h-5 w-5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12"
+                                />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -77,38 +185,51 @@
 
         <!-- Tasks List -->
         <div class="space-y-4">
-            <div v-if="isLoading" class="flex justify-center py-8">
-                <div
-                    class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"
-                ></div>
+            <!-- Loading State -->
+            <div v-if="isLoading" class="flex justify-center py-12">
+                <div class="loading-spinner"></div>
             </div>
 
+            <!-- Empty State -->
             <div
                 v-else-if="filteredTasks.length === 0"
-                class="text-center py-8"
+                class="card card-padding text-center py-12"
             >
-                <div class="text-gray-400 mb-2">
+                <div class="text-gray-400 mb-4">
                     <CheckCircleIcon class="w-16 h-16 mx-auto" />
                 </div>
-                <h3 class="text-lg font-medium text-gray-900 mb-1">
-                    No tasks found
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                    {{ getEmptyStateTitle }}
                 </h3>
-                <p class="text-gray-600">
-                    {{
-                        searchQuery ||
-                        selectedStatus !== "all" ||
-                        selectedPriority !== "all"
-                            ? "Try adjusting your filters"
-                            : "Create your first task to get started"
-                    }}
+                <p class="text-gray-600 mb-6 max-w-md mx-auto">
+                    {{ getEmptyStateDescription }}
                 </p>
+                <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                    <button
+                        v-if="hasActiveFilters"
+                        @click="clearAllFilters"
+                        class="btn btn-secondary"
+                    >
+                        Clear Filters
+                    </button>
+                    <button
+                        @click="showCreateForm = true"
+                        class="btn btn-primary"
+                    >
+                        <PlusIcon class="w-5 h-5 mr-2" />
+                        Create Task
+                    </button>
+                </div>
             </div>
 
-            <TransitionGroup v-else name="list" tag="div" class="space-y-4">
+            <!-- Tasks Grid -->
+            <TransitionGroup v-else name="list" tag="div" class="grid gap-4">
                 <TaskItem
-                    v-for="task in filteredTasks"
+                    v-for="(task, index) in paginatedTasks"
                     :key="task.id"
                     :task="task"
+                    class="fade-in"
+                    :style="{ animationDelay: `${index * 0.05}s` }"
                     @edit="openEditForm"
                     @delete="handleDeleteTask"
                     @toggle-status="handleToggleStatus"
@@ -117,20 +238,64 @@
         </div>
 
         <!-- Pagination -->
-        <div v-if="totalPages > 1" class="flex justify-center space-x-2">
-            <button
-                v-for="page in visiblePages"
-                :key="page"
-                @click="currentPage = page"
-                :class="[
-                    'px-3 py-2 rounded-lg text-sm font-medium',
-                    currentPage === page
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
-                ]"
+        <div v-if="totalPages > 1" class="card card-padding mt-8 fade-in">
+            <div
+                class="flex flex-col sm:flex-row items-center justify-between gap-4"
             >
-                {{ page }}
-            </button>
+                <div class="text-sm text-gray-600">
+                    Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to
+                    {{
+                        Math.min(
+                            currentPage * itemsPerPage,
+                            filteredTasks.length
+                        )
+                    }}
+                    of {{ filteredTasks.length }} results
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button
+                        @click="currentPage = Math.max(1, currentPage - 1)"
+                        :disabled="currentPage === 1"
+                        class="btn btn-secondary px-3 py-2"
+                        :class="{
+                            'opacity-50 cursor-not-allowed': currentPage === 1,
+                        }"
+                    >
+                        Previous
+                    </button>
+
+                    <div class="flex gap-1">
+                        <button
+                            v-for="page in visiblePages"
+                            :key="page"
+                            @click="currentPage = page"
+                            class="btn px-3 py-2"
+                            :class="
+                                currentPage === page
+                                    ? 'btn-primary'
+                                    : 'btn-secondary'
+                            "
+                        >
+                            {{ page }}
+                        </button>
+                    </div>
+
+                    <button
+                        @click="
+                            currentPage = Math.min(totalPages, currentPage + 1)
+                        "
+                        :disabled="currentPage === totalPages"
+                        class="btn btn-secondary px-3 py-2"
+                        :class="{
+                            'opacity-50 cursor-not-allowed':
+                                currentPage === totalPages,
+                        }"
+                    >
+                        Next
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -160,19 +325,87 @@ const itemsPerPage = 10;
 // Computed properties
 const isLoading = computed(() => tasksStore.isLoading);
 
-const statusFilters = [
-    { value: "all", label: "All" },
-    { value: "pending", label: "Pending" },
-    { value: "in_progress", label: "In Progress" },
-    { value: "completed", label: "Completed" },
-];
+const statusFilters = computed(() => [
+    { value: "all", label: "All", count: tasksStore.tasks.length },
+    {
+        value: "pending",
+        label: "Pending",
+        count: tasksStore.tasks.filter((t) => t.status === "pending").length,
+    },
+    {
+        value: "in_progress",
+        label: "In Progress",
+        count: tasksStore.tasks.filter((t) => t.status === "in_progress")
+            .length,
+    },
+    {
+        value: "completed",
+        label: "Completed",
+        count: tasksStore.tasks.filter((t) => t.status === "completed").length,
+    },
+]);
 
-const priorityFilters = [
-    { value: "all", label: "All Priority" },
-    { value: "low", label: "Low" },
-    { value: "medium", label: "Medium" },
-    { value: "high", label: "High" },
-];
+const priorityFilters = computed(() => [
+    { value: "all", label: "All Priority", count: tasksStore.tasks.length },
+    {
+        value: "low",
+        label: "Low",
+        count: tasksStore.tasks.filter((t) => t.priority === "low").length,
+    },
+    {
+        value: "medium",
+        label: "Medium",
+        count: tasksStore.tasks.filter((t) => t.priority === "medium").length,
+    },
+    {
+        value: "high",
+        label: "High",
+        count: tasksStore.tasks.filter((t) => t.priority === "high").length,
+    },
+]);
+
+const hasActiveFilters = computed(() => {
+    return (
+        selectedStatus.value !== "all" ||
+        selectedPriority.value !== "all" ||
+        searchQuery.value.trim() !== ""
+    );
+});
+
+const activeFiltersText = computed(() => {
+    const filters = [];
+    if (selectedStatus.value !== "all") {
+        filters.push(
+            statusFilters.value.find((s) => s.value === selectedStatus.value)
+                ?.label
+        );
+    }
+    if (selectedPriority.value !== "all") {
+        filters.push(
+            priorityFilters.value.find(
+                (p) => p.value === selectedPriority.value
+            )?.label
+        );
+    }
+    if (searchQuery.value.trim()) {
+        filters.push(`"${searchQuery.value}"`);
+    }
+    return filters.join(", ");
+});
+
+const getEmptyStateTitle = computed(() => {
+    if (hasActiveFilters.value) {
+        return "No tasks match your filters";
+    }
+    return "No tasks found";
+});
+
+const getEmptyStateDescription = computed(() => {
+    if (hasActiveFilters.value) {
+        return "Try adjusting your filters to see more results, or create a new task.";
+    }
+    return "Get started by creating your first task. Stay organized and productive!";
+});
 
 const filteredTasks = computed(() => {
     let tasks = tasksStore.tasks;
@@ -209,6 +442,12 @@ const totalPages = computed(() =>
     Math.ceil(filteredTasks.value.length / itemsPerPage)
 );
 
+const paginatedTasks = computed(() => {
+    const start = (currentPage.value - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    return filteredTasks.value.slice(start, end);
+});
+
 const visiblePages = computed(() => {
     const pages = [];
     const start = Math.max(1, currentPage.value - 2);
@@ -221,6 +460,13 @@ const visiblePages = computed(() => {
 });
 
 // Methods
+const clearAllFilters = () => {
+    selectedStatus.value = "all";
+    selectedPriority.value = "all";
+    searchQuery.value = "";
+    currentPage.value = 1;
+};
+
 const openEditForm = (task) => {
     editingTask.value = task;
     showEditForm.value = true;

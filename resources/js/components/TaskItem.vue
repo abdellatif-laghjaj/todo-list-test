@@ -1,93 +1,104 @@
 <template>
     <div
-        :class="[
-            'bg-white rounded-lg shadow-sm border border-gray-200 p-6 transition-all duration-200 hover:shadow-md',
-            task.status === 'completed' ? 'opacity-75' : '',
-        ]"
+        class="task-card"
+        :class="{
+            'task-completed': task.status === 'completed',
+            'task-high-priority': task.priority === 'high',
+            'task-medium-priority': task.priority === 'medium',
+            'task-low-priority': task.priority === 'low',
+        }"
     >
-        <div class="flex items-start justify-between">
+        <div class="flex items-start justify-between gap-4">
             <!-- Main Content -->
             <div class="flex-1 min-w-0">
-                <div class="flex items-center space-x-3 mb-2">
+                <!-- Header with Status Toggle and Title -->
+                <div class="flex items-start gap-4 mb-3">
                     <!-- Status Toggle -->
                     <button
                         @click="$emit('toggle-status', task)"
-                        :class="[
-                            'flex-shrink-0 w-5 h-5 rounded-full border-2 transition-colors',
+                        class="task-status-toggle"
+                        :class="{
+                            completed: task.status === 'completed',
+                            pending: task.status === 'pending',
+                            'in-progress': task.status === 'in_progress',
+                        }"
+                        :aria-label="`Mark task as ${
                             task.status === 'completed'
-                                ? 'bg-green-500 border-green-500'
-                                : 'border-gray-300 hover:border-green-400',
-                        ]"
+                                ? 'incomplete'
+                                : 'complete'
+                        }`"
                     >
                         <CheckIcon
                             v-if="task.status === 'completed'"
-                            class="w-3 h-3 text-white m-auto"
+                            class="w-3 h-3 text-white"
                         />
                     </button>
 
-                    <!-- Title -->
-                    <h3
-                        :class="[
-                            'text-lg font-semibold truncate',
-                            task.status === 'completed'
-                                ? 'line-through text-gray-500'
-                                : 'text-gray-900',
-                        ]"
-                    >
-                        {{ task.title }}
-                    </h3>
+                    <!-- Title and Priority -->
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-3 mb-2">
+                            <h3
+                                class="task-title"
+                                :class="{
+                                    'line-through text-gray-500':
+                                        task.status === 'completed',
+                                    'text-gray-900':
+                                        task.status !== 'completed',
+                                }"
+                            >
+                                {{ task.title }}
+                            </h3>
+                            <div class="priority-badge" :class="task.priority">
+                                {{ task.priority }}
+                            </div>
+                        </div>
 
-                    <!-- Priority Badge -->
-                    <span
-                        :class="[
-                            'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
-                            priorityClasses[task.priority],
-                        ]"
-                    >
-                        {{
-                            task.priority.charAt(0).toUpperCase() +
-                            task.priority.slice(1)
-                        }}
-                    </span>
+                        <!-- Description -->
+                        <p
+                            v-if="task.description"
+                            class="task-description"
+                            :class="{
+                                'line-through text-gray-400':
+                                    task.status === 'completed',
+                                'text-gray-600': task.status !== 'completed',
+                            }"
+                        >
+                            {{ task.description }}
+                        </p>
+                    </div>
                 </div>
 
-                <!-- Description -->
-                <p
-                    v-if="task.description"
-                    :class="[
-                        'text-gray-600 mb-3 line-clamp-2',
-                        task.status === 'completed' ? 'line-through' : '',
-                    ]"
-                >
-                    {{ task.description }}
-                </p>
-
                 <!-- Meta Information -->
-                <div class="flex items-center space-x-4 text-sm text-gray-500">
+                <div
+                    class="flex flex-wrap items-center gap-4 text-sm text-gray-500"
+                >
                     <!-- Status -->
-                    <div class="flex items-center space-x-1">
+                    <div class="flex items-center gap-2">
                         <div
-                            :class="[
-                                'w-2 h-2 rounded-full',
-                                statusClasses[task.status],
-                            ]"
+                            class="status-dot"
+                            :class="task.status.replace('_', '-')"
                         ></div>
-                        <span>{{ formatStatus(task.status) }}</span>
+                        <span class="font-medium">{{
+                            formatStatus(task.status)
+                        }}</span>
                     </div>
 
                     <!-- Due Date -->
                     <div
                         v-if="task.due_date"
-                        class="flex items-center space-x-1"
+                        class="flex items-center gap-2"
+                        :class="{ 'text-red-600 font-medium': isOverdue }"
                     >
                         <CalendarIcon class="w-4 h-4" />
-                        <span :class="{ 'text-red-600': isOverdue }">
-                            {{ formatDate(task.due_date) }}
-                        </span>
+                        <span>{{ formatDate(task.due_date) }}</span>
+                        <ExclamationTriangleIcon
+                            v-if="isOverdue"
+                            class="w-4 h-4 text-red-500"
+                        />
                     </div>
 
                     <!-- Created Date -->
-                    <div class="flex items-center space-x-1">
+                    <div class="flex items-center gap-2">
                         <ClockIcon class="w-4 h-4" />
                         <span>{{ formatRelativeDate(task.created_at) }}</span>
                     </div>
@@ -95,17 +106,17 @@
             </div>
 
             <!-- Actions -->
-            <div class="flex items-center space-x-2 ml-4">
+            <div class="flex items-center gap-1">
                 <button
                     @click="$emit('edit', task)"
-                    class="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                    class="action-btn action-btn-edit"
                     title="Edit task"
                 >
                     <PencilIcon class="w-4 h-4" />
                 </button>
                 <button
                     @click="$emit('delete', task)"
-                    class="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                    class="action-btn action-btn-delete"
                     title="Delete task"
                 >
                     <TrashIcon class="w-4 h-4" />
@@ -116,13 +127,20 @@
         <!-- Overdue Warning -->
         <div
             v-if="isOverdue && task.status !== 'completed'"
-            class="mt-3 p-3 bg-red-50 border border-red-200 rounded-lg"
+            class="overdue-warning"
         >
-            <div class="flex items-center space-x-2">
-                <ExclamationTriangleIcon class="w-5 h-5 text-red-500" />
-                <span class="text-red-700 font-medium"
-                    >This task is overdue</span
-                >
+            <div class="flex items-center gap-3">
+                <ExclamationTriangleIcon
+                    class="w-5 h-5 text-red-500 flex-shrink-0"
+                />
+                <div>
+                    <span class="text-red-700 font-semibold"
+                        >This task is overdue</span
+                    >
+                    <p class="text-red-600 text-sm mt-1">
+                        Due {{ formatRelativeDate(task.due_date) }}
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -203,6 +221,110 @@ const formatRelativeDate = (dateString) => {
     return formatDate(dateString);
 };
 </script>
+
+<style scoped>
+/* Task Status Toggle */
+.task-status-toggle {
+    @apply flex-shrink-0 w-6 h-6 rounded-full border-2 transition-all duration-200 flex items-center justify-center;
+}
+
+.task-status-toggle.pending {
+    @apply border-gray-300 hover:border-green-400 hover:bg-green-50;
+}
+
+.task-status-toggle.in-progress {
+    @apply border-blue-400 bg-blue-50 hover:border-blue-500 hover:bg-blue-100;
+}
+
+.task-status-toggle.completed {
+    @apply bg-green-500 border-green-500 hover:bg-green-600;
+}
+
+/* Task Title */
+.task-title {
+    @apply text-lg font-semibold leading-tight;
+    word-break: break-word;
+}
+
+/* Task Description */
+.task-description {
+    @apply text-sm leading-relaxed mb-3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Action Buttons */
+.action-btn {
+    @apply p-2 rounded-lg transition-all duration-200 text-gray-400;
+}
+
+.action-btn:hover {
+    transform: scale(1.1);
+}
+
+.action-btn-edit:hover {
+    @apply text-blue-600 bg-blue-50;
+}
+
+.action-btn-delete:hover {
+    @apply text-red-600 bg-red-50;
+}
+
+/* Overdue Warning */
+.overdue-warning {
+    @apply mt-4 p-4 bg-red-50 border border-red-200 rounded-lg;
+}
+
+/* Enhanced hover states */
+.task-card:hover .action-btn {
+    opacity: 1;
+}
+
+@media (min-width: 768px) {
+    .action-btn {
+        opacity: 0.7;
+    }
+}
+
+/* Focus styles for accessibility */
+.task-status-toggle:focus-visible,
+.action-btn:focus-visible {
+    outline: 2px solid rgb(99 102 241);
+    outline-offset: 2px;
+}
+
+/* Priority-specific card styling */
+.task-card.task-high-priority:hover::before {
+    opacity: 1;
+}
+
+.task-card.task-medium-priority:hover::before {
+    opacity: 1;
+}
+
+.task-card.task-low-priority:hover::before {
+    opacity: 1;
+}
+
+/* Status-specific animations */
+.task-status-toggle:active {
+    transform: scale(0.95);
+}
+
+/* Text truncation improvements */
+@supports (-webkit-line-clamp: 2) {
+    .task-description {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: initial;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+}
+</style>
 
 <style scoped>
 .line-clamp-2 {
