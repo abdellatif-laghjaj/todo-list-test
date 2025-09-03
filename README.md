@@ -23,7 +23,6 @@ A modern, full-stack todo list application built with Laravel (backend) and Vue.
 -   [Testing](#testing)
 -   [Contributing](#contributing)
 -   [Troubleshooting](#troubleshooting)
--   [License](#license)
 
 ## Features
 
@@ -394,8 +393,7 @@ Solution: php artisan jwt:secret
 #### 2. Database Connection Error
 
 ```bash
-Error: Database file not found
-Solution: touch database/database.sqlite
+Make sure to create the database
 ```
 
 #### 3. Permission Errors
