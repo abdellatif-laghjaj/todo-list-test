@@ -11,6 +11,7 @@ A modern, full-stack todo list application built with Laravel (backend) and Vue.
 
 -   [Features](#features)
 -   [Screenshots](#screenshots)
+-   [Architecture](#architecture)
 -   [Tech Stack](#tech-stack)
 -   [Prerequisites](#prerequisites)
 -   [Installation](#installation)
@@ -65,6 +66,42 @@ A modern, full-stack todo list application built with Laravel (backend) and Vue.
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/11de5597-4d98-4703-862f-680aea5acbba" />
 
 <img width="1919" height="907" alt="image" src="https://github.com/user-attachments/assets/7de7b0ae-a890-4618-bc76-0eae8cfe189a" />
+
+## Architecture
+
+This project follows a modern, decoupled full-stack architecture. The frontend is a Vue.js Single Page Application (SPA) that communicates with a Laravel-based REST API. Real-time functionality is achieved using WebSockets via Pusher.
+
+```mermaid
+graph TD
+    subgraph Frontend (Vue.js SPA)
+        A[User] --> B{Browser};
+        B --> C[Vue Components];
+        C <--> D[Pinia Stores];
+        C --> E[Vue Router];
+        D -- API Calls --> F[Axios];
+    end
+
+    subgraph Backend (Laravel API)
+        G[API Routes] --> H[Controllers];
+        H --> I[Services];
+        I --> J[Repositories];
+        J --> K[Eloquent Models];
+        K <--> L[Database (PostgreSQL/MySQL)];
+        I -- Dispatches --> M[Laravel Events];
+    end
+
+    subgraph Real-time Communication
+        M -- Broadcasts via --> N[Pusher];
+        N -- Pushes updates to --> O[Laravel Echo];
+    end
+
+    F -- HTTP Requests --> G;
+    O -- Updates --> D;
+
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style L fill:#bbf,stroke:#333,stroke-width:2px
+    style N fill:#ffc,stroke:#333,stroke-width:2px
+```
 
 ## Tech Stack
 
