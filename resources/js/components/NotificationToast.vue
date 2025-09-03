@@ -66,7 +66,7 @@
             <div class="ml-4 flex-shrink-0 flex">
                 <button
                     @click="dismiss"
-                    class="rounded-md inline-flex text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    class="rounded-md inline-flex text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     <span class="sr-only">Close</span>
                     <XMarkIcon class="h-5 w-5" />
@@ -137,28 +137,28 @@ const typeClasses = {
     success: "border-l-4 border-l-green-500",
     warning: "border-l-4 border-l-yellow-500",
     error: "border-l-4 border-l-red-500",
-    info: "border-l-4 border-l-blue-500",
+    info: "border-l-4 border-l-indigo-500",
 };
 
 const iconClasses = {
     success: "text-green-500",
     warning: "text-yellow-500",
     error: "text-red-500",
-    info: "text-blue-500",
+    info: "text-indigo-500",
 };
 
 const titleClasses = {
     success: "text-green-800",
     warning: "text-yellow-800",
     error: "text-red-800",
-    info: "text-blue-800",
+    info: "text-indigo-800",
 };
 
 const progressBarClasses = {
     success: "bg-green-500",
     warning: "bg-yellow-500",
     error: "bg-red-500",
-    info: "bg-blue-500",
+    info: "bg-indigo-500",
 };
 
 // Methods

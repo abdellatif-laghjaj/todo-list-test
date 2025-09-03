@@ -39,7 +39,7 @@
                             v-model="form.title"
                             type="text"
                             required
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                             placeholder="Enter task title"
                             :class="{ 'border-red-300': errors.title }"
                         />
@@ -63,7 +63,7 @@
                             id="description"
                             v-model="form.description"
                             rows="3"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                             placeholder="Enter task description"
                             :class="{ 'border-red-300': errors.description }"
                         ></textarea>
@@ -88,7 +88,7 @@
                             <select
                                 id="priority"
                                 v-model="form.priority"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                                 :class="{ 'border-red-300': errors.priority }"
                             >
                                 <option value="low">Low</option>
@@ -114,7 +114,7 @@
                             <select
                                 id="status"
                                 v-model="form.status"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                                 :class="{ 'border-red-300': errors.status }"
                             >
                                 <option value="pending">Pending</option>
@@ -142,7 +142,7 @@
                             id="due_date"
                             v-model="form.due_date"
                             type="date"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                             :class="{ 'border-red-300': errors.due_date }"
                             :min="today"
                         />
@@ -166,7 +166,7 @@
                         <button
                             type="submit"
                             :disabled="isLoading"
-                            class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+                            class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
                         >
                             <div
                                 v-if="isLoading"

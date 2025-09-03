@@ -120,10 +120,10 @@
                                         }}</span>
                                         <span
                                             v-if="!notification.read"
-                                            class="flex items-center gap-1 text-blue-600 font-medium"
+                                            class="flex items-center gap-1 text-indigo-600 font-medium"
                                         >
                                             <div
-                                                class="w-2 h-2 bg-blue-500 rounded-full"
+                                                class="w-2 h-2 bg-indigo-500 rounded-full"
                                             ></div>
                                             New
                                         </span>
@@ -135,7 +135,7 @@
                                     <button
                                         v-if="!notification.read"
                                         @click="markAsRead(notification.id)"
-                                        class="action-btn text-gray-400 hover:text-blue-600"
+                                        class="action-btn text-gray-400 hover:text-indigo-600"
                                         title="Mark as read"
                                     >
                                         <CheckIcon class="w-4 h-4" />
@@ -205,9 +205,9 @@ const getNotificationIconClass = (type) => {
         success: "bg-green-100 text-green-600",
         warning: "bg-yellow-100 text-yellow-600",
         error: "bg-red-100 text-red-600",
-        info: "bg-blue-100 text-blue-600",
+        info: "bg-indigo-100 text-indigo-600",
     };
-    return classes[type] || "bg-blue-100 text-blue-600";
+    return classes[type] || "bg-indigo-100 text-indigo-600";
 };
 
 const markAsRead = (id) => {
@@ -263,7 +263,7 @@ onMounted(() => {
 }
 
 .notification-card.unread {
-    @apply border-l-4 border-l-blue-500 bg-blue-50/30;
+    @apply border-l-4 border-l-indigo-500 bg-indigo-50/30;
 }
 
 .notification-card.read {

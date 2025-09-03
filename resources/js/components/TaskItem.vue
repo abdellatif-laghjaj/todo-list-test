@@ -177,7 +177,7 @@ const priorityClasses = {
 
 const statusClasses = {
     pending: "bg-gray-400",
-    in_progress: "bg-blue-500",
+    in_progress: "bg-indigo-500",
     completed: "bg-green-500",
 };
 
@@ -233,7 +233,7 @@ const formatRelativeDate = (dateString) => {
 }
 
 .task-status-toggle.in-progress {
-    @apply border-blue-400 bg-blue-50 hover:border-blue-500 hover:bg-blue-100;
+    @apply border-indigo-400 bg-indigo-50;
 }
 
 .task-status-toggle.completed {
@@ -260,12 +260,8 @@ const formatRelativeDate = (dateString) => {
     @apply p-2 rounded-lg transition-all duration-200 text-gray-400;
 }
 
-.action-btn:hover {
-    transform: scale(1.1);
-}
-
 .action-btn-edit:hover {
-    @apply text-blue-600 bg-blue-50;
+    @apply text-indigo-600 bg-indigo-50;
 }
 
 .action-btn-delete:hover {
@@ -278,10 +274,6 @@ const formatRelativeDate = (dateString) => {
 }
 
 /* Enhanced hover states */
-.task-card:hover .action-btn {
-    opacity: 1;
-}
-
 @media (min-width: 768px) {
     .action-btn {
         opacity: 0.7;
@@ -293,19 +285,6 @@ const formatRelativeDate = (dateString) => {
 .action-btn:focus-visible {
     outline: 2px solid rgb(99 102 241);
     outline-offset: 2px;
-}
-
-/* Priority-specific card styling */
-.task-card.task-high-priority:hover::before {
-    opacity: 1;
-}
-
-.task-card.task-medium-priority:hover::before {
-    opacity: 1;
-}
-
-.task-card.task-low-priority:hover::before {
-    opacity: 1;
 }
 
 /* Status-specific animations */

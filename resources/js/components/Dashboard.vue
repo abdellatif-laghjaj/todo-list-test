@@ -18,12 +18,12 @@
                     class="flex flex-col sm:flex-row sm:items-center gap-4 text-right"
                 >
                     <div
-                        class="bg-gradient-to-r from-blue-50 to-indigo-50 px-4 py-3 rounded-lg border border-blue-100"
+                        class="bg-gradient-to-r from-indigo-50 to-indigo-100 px-4 py-3 rounded-lg border border-indigo-100"
                     >
                         <p class="text-sm font-medium text-gray-700">
                             {{ currentDate }}
                         </p>
-                        <p class="text-2xl font-bold text-indigo-600">
+                        <p class="text-2xl font-bold text-gray-600">
                             {{ currentTime }}
                         </p>
                     </div>
@@ -35,17 +35,17 @@
         <div class="stats-grid mb-8">
             <!-- Total Tasks -->
             <div
-                class="card card-padding-sm hover:shadow-lg transition-all duration-300 fade-in"
+                class="card card-padding-sm transition-all duration-300 fade-in"
                 style="animation-delay: 0.1s"
             >
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-4">
                         <div class="flex-shrink-0">
                             <div
-                                class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center"
+                                class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center"
                             >
                                 <ClipboardDocumentListIcon
-                                    class="h-6 w-6 text-blue-600"
+                                    class="h-6 w-6 text-indigo-600"
                                 />
                             </div>
                         </div>
@@ -66,7 +66,7 @@
 
             <!-- Pending Tasks -->
             <div
-                class="card card-padding-sm hover:shadow-lg transition-all duration-300 fade-in"
+                class="card card-padding-sm transition-all duration-300 fade-in"
                 style="animation-delay: 0.2s"
             >
                 <div class="flex items-center justify-between">
@@ -97,16 +97,16 @@
 
             <!-- In Progress Tasks -->
             <div
-                class="card card-padding-sm hover:shadow-lg transition-all duration-300 fade-in"
+                class="card card-padding-sm transition-all duration-300 fade-in"
                 style="animation-delay: 0.3s"
             >
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-4">
                         <div class="flex-shrink-0">
                             <div
-                                class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center"
+                                class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center"
                             >
-                                <PlayIcon class="h-6 w-6 text-blue-600" />
+                                <PlayIcon class="h-6 w-6 text-indigo-600" />
                             </div>
                         </div>
                         <div>
@@ -119,7 +119,7 @@
                         </div>
                     </div>
                     <div class="text-right">
-                        <div class="text-xs text-blue-600 font-medium">
+                        <div class="text-xs text-indigo-600 font-medium">
                             {{ inProgressPercentage }}%
                         </div>
                     </div>
@@ -128,7 +128,7 @@
 
             <!-- Completed Tasks -->
             <div
-                class="card card-padding-sm hover:shadow-lg transition-all duration-300 fade-in"
+                class="card card-padding-sm transition-all duration-300 fade-in"
                 style="animation-delay: 0.4s"
             >
                 <div class="flex items-center justify-between">
@@ -196,7 +196,7 @@
                         >
                     </div>
                     <div class="flex items-center space-x-2">
-                        <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+                        <div class="w-3 h-3 bg-indigo-500 rounded-full"></div>
                         <span class="text-gray-600"
                             >{{ stats.in_progress }} in progress</span
                         >
@@ -240,7 +240,7 @@
                     <div
                         v-for="(task, index) in recentTasks"
                         :key="task.id"
-                        class="task-card p-4 hover:shadow-md transition-all duration-200"
+                        class="task-card p-4 transition-all duration-200"
                         :class="{
                             'task-completed': task.status === 'completed',
                             'task-high-priority': task.priority === 'high',
@@ -315,7 +315,7 @@
                     <div
                         v-for="(task, index) in upcomingTasks"
                         :key="task.id"
-                        class="task-card p-4 hover:shadow-md transition-all duration-200"
+                        class="task-card p-4 transition-all duration-200"
                         :class="{
                             'border-red-200 bg-red-50': isOverdue(
                                 task.due_date
@@ -478,7 +478,7 @@ const upcomingTasks = computed(() => {
 
 const statusColors = {
     pending: "bg-gray-400",
-    in_progress: "bg-blue-500",
+    in_progress: "bg-indigo-500",
     completed: "bg-green-500",
 };
 
@@ -600,9 +600,6 @@ onUnmounted(() => {
 }
 
 /* Card hover effects */
-.card:hover {
-    transform: translateY(-1px);
-}
 
 /* Responsive design improvements */
 @media (max-width: 640px) {
@@ -618,8 +615,8 @@ onUnmounted(() => {
 }
 
 .status-dot.in-progress {
-    background: rgb(59 130 246);
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    background: rgb(99 102 241);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
 }
 
 .status-dot.completed {

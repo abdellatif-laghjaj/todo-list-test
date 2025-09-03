@@ -154,7 +154,7 @@
                             <!-- Menu Items -->
                             <button
                                 @click="handleLogout"
-                                class="dropdown-item w-full text-left text-red-600 hover:bg-red-50 flex items-center"
+                                class="dropdown-item w-full text-left text-red-600 hover:bg-indigo-50 !flex items-center"
                                 role="menuitem"
                             >
                                 <svg

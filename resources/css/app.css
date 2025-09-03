@@ -78,10 +78,6 @@
     transition: box-shadow var(--transition-normal);
 }
 
-.card:hover {
-    box-shadow: var(--shadow-md);
-}
-
 .card-padding {
     padding: var(--space-2xl);
 }
@@ -99,27 +95,6 @@
     transition: all var(--transition-normal);
     position: relative;
     overflow: hidden;
-}
-
-.task-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background: var(--task-border-color, rgb(156 163 175));
-    opacity: 0;
-    transition: opacity var(--transition-normal);
-}
-
-.task-card:hover::before {
-    opacity: 1;
-}
-
-.task-card:hover {
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-2px);
 }
 
 .task-card.task-high-priority {
@@ -375,9 +350,9 @@
 }
 
 .filter-pill.active {
-    background: rgb(239 246 255);
-    border-color: rgb(147 197 253);
-    color: rgb(29 78 216);
+    background: rgb(238 242 255);
+    border-color: rgb(129 140 248);
+    color: rgb(67 56 202);
 }
 
 /* Priority Badges */
@@ -424,7 +399,7 @@
 }
 
 .status-dot.in-progress {
-    background: rgb(59 130 246);
+    background: rgb(99 102 241);
 }
 
 .status-dot.completed {
@@ -443,7 +418,7 @@
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, rgb(59 130 246), rgb(34 197 94));
+    background: linear-gradient(90deg, rgb(99 102 241), rgb(34 197 94));
     border-radius: var(--radius-lg);
     transition: width var(--transition-slow);
     position: relative;
